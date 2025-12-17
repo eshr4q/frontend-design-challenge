@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Range Slider Component</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <main>
+        <section class="container">
+            
+            <div class="card-wrapper">
+                
+                <div class="card-section header-section">
+                    <h2>رنج اسلایدر</h2>
+                    <h2>Range Slider</h2>
+
+                </div>
+
+                <div class="card-section body-section">
+                    
+                    <div class="value-display">
+                        <span>عدد</span>
+                        <span id="displayValue" class="large-number">۲۰</span>
+                        <span>انتخاب شده</span>
+                        <span class="info-icon">؟</span>
+                    </div>
+
+                    <div class="slider-wrapper">
+                        <input type="range" id="rangeInput" min="10" max="100" step="10" value="20">
+                        <div class="slider-labels" id="labelContainer"></div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
