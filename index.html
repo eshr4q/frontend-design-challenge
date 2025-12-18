@@ -1,215 +1,288 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Design Challenge - Final</title>
-    
-    <link rel="stylesheet" href="css/style.css">
-    
-    </head>
-<body>
 
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
     <div class="site-container">
+      <header class="site-header">
+        <div class="header-content">
+          <div class="header-note">فاطمه حسینی</div>
+          <div class="header-action">
+            <button class="menu-btn">منو تسک ها</button>
+          </div>
+        </div>
+      </header>
 
-        <header class="site-header">
-            <div class="header-content">
-                <div class="header-note">فاطمه حسینی</div>
-                <div class="header-action">
-                    <button class="menu-btn">
-                        منو تسک ها
-                    </button>
+      <section class="hero-section">
+        <h1 class="hero-title">
+          بزار کُدت
+          <span class="code-icon-wrapper">&lt;/&gt;</span>
+          حرف بزنه...
+        </h1>
+        <p class="hero-subtitle">صفحه ای ساده اما با جزئیات ریز!</p>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div class="title-en">Slider</div>
+          <div class="title-fa">
+            <span>اسلایدر</span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="slider-track">
+          <div class="slider-window">
+            <div class="slider-strip" id="track">
+              <div class="slide-unit">
+                <img src="assets/images/dog-big.jpeg" alt="Nature" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
                 </div>
+              </div>
+
+              <div class="slide-unit">
+                <img src="assets/images/mountain-big.jpeg" alt="Mountain" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-unit">
+                <img src="assets/images/dog-big.jpeg" alt="Sky" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-unit">
+                <img src="assets/images/sunflowers.png" alt="Fields" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
-        </header>
+          </div>
 
-        <section class="hero-section">
-            <h1 class="hero-title">
-                بزار کُدت
-                <span class="code-icon-wrapper">&lt;/&gt;</span>
-                حرف بزنه...
-            </h1>
-            <p class="hero-subtitle">صفحه ای ساده اما با جزئیات ریز!</p>
-        </section>
+          <div class="slider-nav">
+            <button class="nav-arrow" id="btnNext">
+              <img src="assets/icons/CaretLeft.svg" alt="Next" />
+            </button>
 
-        <section class="section-card">
-            <div class="section-header">
-                <div class="title-en">Slider</div>
-                <div class="title-fa">
-                    <span>اسلایدر</span>
-                    <span class="dot"></span>
+            <div class="nav-dots" id="dotWrapper"></div>
+
+            <button class="nav-arrow" id="btnPrev">
+              <img src="assets/icons/CaretLeft.svg" alt="Prev" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div class="title-en">TabMenu</div>
+          <div class="title-fa">
+            <span>تب منو</span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="tabs-container">
+          <input type="radio" id="tab-1" name="tab-group" checked />
+          <input type="radio" id="tab-2" name="tab-group" />
+          <input type="radio" id="tab-3" name="tab-group" />
+
+          <div class="tabs-nav">
+            <label for="tab-1" class="tab-label">منو شماره یک</label>
+            <label for="tab-2" class="tab-label">منو شماره دوم</label>
+            <label for="tab-3" class="tab-label">منو شماره سوم</label>
+          </div>
+
+          <div class="tabs-content-area">
+            <div class="tab-content content-1">
+              <div class="text-col">
+                <div
+                  style="
+                    display: flex;
+                    justify-content: flex-end;
+                    align-items: center;
+                    gap: 10px;
+                    margin-bottom: 20px;
+                  "
+                >
+                  <h3 style="margin: 0; font-size: 1.5rem">منو شماره یک</h3>
                 </div>
+                <p>
+                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
+                  با استفاده از طراحان گرافیک است.
+                </p>
+                <a href="#" class="tab-btn">اطلاعات بیشتر </a>
+              </div>
+              <div class="img-col">
+                <img src="assets/images/dog-big.jpeg" alt="Tab 1" />
+                <div class="play-btn"></div>
+              </div>
+            </div>
+            <div class="tab-content content-2">
+              <div class="text-col">
+                <h3>منو شماره دو</h3>
+                <p>توضیحات مربوط به تب دوم در اینجا قرار می‌گیرد.</p>
+              </div>
+              <div class="img-col">
+                <img src="assets/images/dog-big.jpeg" alt="Tab 2" />
+              </div>
+            </div>
+            <div class="tab-content content-3">
+              <div class="text-col">
+                <h3>منو شماره سه</h3>
+                <p>توضیحات مربوط به تب سوم در اینجا قرار می‌گیرد.</p>
+              </div>
+              <div class="img-col">
+                <img src="assets/images/dog-big.jpeg" alt="Tab 3" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div class="title-en">Signup Form</div>
+          <div class="title-fa">
+            <span>فرم ثبت نام</span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="signup-content">
+          <div class="signup-brand">
+            <h2>
+              Let’s Make <br />
+              a <span class="highlight-text">Easier</span> <br />
+              World <br />
+              together
+            </h2>
+            <div class="smiley-badge"></div>
+          </div>
+
+          <div class="signup-form-container">
+            <form action="#">
+              <div class="form-group">
+                <label class="form-label">نام کاربری</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="مثلاً: حمیدرضا"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">شماره تماس</label>
+                <input
+                  type="tel"
+                  class="form-input"
+                  placeholder="مثلاً: ۰۹۱۲۱۱۴۴۵۵۸۸"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">رمز عبور</label>
+                <input
+                  type="password"
+                  class="form-input"
+                  placeholder="رمز عبور ..."
+                />
+              </div>
+              <ul
+                class="password-rules"
+                style="font-size: 0.8rem; color: #777; margin-bottom: 20px"
+              >
+                <li>- حداقل باید ۸ حرف باشد</li>
+                <li>- باید شامل عدد باشد</li>
+              </ul>
+              <div class="form-actions">
+                <button type="button" class="btn-cancel">انصراف</button>
+                <button type="submit" class="btn-submit">ثبت نام</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+
+      <section class="range-slider-section">
+        <div class="card-wrapper">
+          <div class="rs-card-section rs-header-section">
+            <div class="title-en">Range Slider</div>
+            <div class="title-fa">
+              <span>رنج اسلایدر</span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <div class="rs-card-section rs-body-section">
+            <div class="value-display">
+              <span>عدد</span>
+              <span id="displayValue" class="large-number">۲۰</span>
+              <span>انتخاب شده</span>
+              <span class="info-icon">؟</span>
             </div>
 
-            <div class="slider-track">
-                <div class="slide-item">
-                    <img src="assets/images/dog-big.jpeg" alt="Slide 1">
-                    <div class="slide-content">
-                        <div class="slide-icon"></div>
-                        <h3>زیبایی طبیعت</h3>
-                        <p>تصویری زیبا از کوهستان</p>
-                    </div>
-                </div>
-                <div class="slide-item">
-                    <img src="assets/images/dog-big.jpeg" alt="Slide 2">
-                    <div class="slide-content">
-                        <div class="slide-icon"></div>
-                        <h3>عکاسی هنری</h3>
-                        <p>ثبت لحظات ناب</p>
-                    </div>
-                </div>
-                <div class="slide-item">
-                    <img src="assets/images/dog-big.jpeg" alt="Slide 3">
-                    <div class="slide-content">
-                        <div class="slide-icon"></div>
-                        <h3>طراحی مدرن</h3>
-                        <p>ترکیب رنگ و نور</p>
-                    </div>
-                </div>
-                <div class="slide-item">
-                    <img src="assets/images/dog-big.jpeg" alt="Slide 4">
-                    <div class="slide-content">
-                        <div class="slide-icon"></div>
-                        <h3>کدنویسی</h3>
-                        <p>توسعه وب</p>
-                    </div>
-                </div>
+            <div class="slider-wrapper">
+              <input
+                type="range"
+                id="rangeInput"
+                min="10"
+                max="100"
+                step="10"
+                value="20"
+              />
+              <div class="slider-labels" id="labelContainer"></div>
             </div>
-        </section>
+          </div>
+        </div>
+      </section>
 
-        <section class="section-card">
-            <div class="section-header">
-                <div class="title-en">TabMenu</div>
-                <div class="title-fa">
-                    <span>تب منو</span>
-                    <span class="dot"></span>
-                </div>
-            </div>
-
-            <div class="tabs-container">
-                <input type="radio" id="tab-1" name="tab-group" checked>
-                <input type="radio" id="tab-2" name="tab-group">
-                <input type="radio" id="tab-3" name="tab-group">
-
-                <div class="tabs-nav">
-                    <label for="tab-1" class="tab-label">منو شماره یک</label>
-                    <label for="tab-2" class="tab-label">منو شماره دوم</label>
-                    <label for="tab-3" class="tab-label">منو شماره سوم</label>
-                </div>
-
-                <div class="tabs-content-area">
-                    <div class="tab-content content-1">
-                        <div class="text-col">
-                            <div style="display:flex; justify-content: flex-end; align-items: center; gap:10px; margin-bottom: 20px;">
-                                <h3 style="margin:0; font-size:1.5rem;">منو شماره یک</h3>
-                                </div>
-                            <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است.</p>
-                            <a href="#" class="tab-btn">اطلاعات بیشتر </a>
-                        </div>
-                        <div class="img-col">
-                            <img src="assets/images/dog-big.jpeg" alt="Tab 1">
-                            <div class="play-btn"></div>
-                        </div>
-                    </div>
-                    <div class="tab-content content-2">
-                        <div class="text-col">
-                            <h3>منو شماره دو</h3>
-                            <p>توضیحات مربوط به تب دوم در اینجا قرار می‌گیرد.</p>
-                        </div>
-                        <div class="img-col">
-                            <img src="assets/images/dog-big.jpeg" alt="Tab 2">
-                        </div>
-                    </div>
-                    <div class="tab-content content-3">
-                        <div class="text-col">
-                            <h3>منو شماره سه</h3>
-                            <p>توضیحات مربوط به تب سوم در اینجا قرار می‌گیرد.</p>
-                        </div>
-                        <div class="img-col">
-                            <img src="assets/images/dog-big.jpeg" alt="Tab 3">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="section-card">
-            <div class="section-header">
-                <div class="title-en">Signup Form</div>
-                <div class="title-fa">
-                    <span>فرم ثبت نام</span>
-                    <span class="dot"></span>
-                </div>
-            </div>
-
-            <div class="signup-content">
-                <div class="signup-brand">
-                    <h2>
-                        Let’s Make <br>
-                        a <span class="highlight-text">Easier</span> <br>
-                        World <br>
-                        together
-                    </h2>
-                    <div class="smiley-badge">
-                        </div>
-                </div>
-
-                <div class="signup-form-container">
-                    <form action="#">
-                        <div class="form-group">
-                            <label class="form-label">نام کاربری</label>
-                            <input type="text" class="form-input" placeholder="مثلاً: حمیدرضا">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">شماره تماس</label>
-                            <input type="tel" class="form-input" placeholder="مثلاً: ۰۹۱۲۱۱۴۴۵۵۸۸">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">رمز عبور</label>
-                            <input type="password" class="form-input" placeholder="رمز عبور ...">
-                        </div>
-                        <ul class="password-rules" style="font-size:0.8rem; color:#777; margin-bottom:20px;">
-                            <li>- حداقل باید ۸ حرف باشد</li>
-                            <li>- باید شامل عدد باشد</li>
-                        </ul>
-                        <div class="form-actions">
-                            <button type="button" class="btn-cancel">انصراف</button>
-                            <button type="submit" class="btn-submit">
-                                ثبت نام </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-        <section class="range-slider-section">
-            <div class="card-wrapper">
-                <div class="rs-card-section rs-header-section">
-                    <div class="title-en">Range Slider</div>
-                    <div class="title-fa">
-                        <span>رنج اسلایدر</span>
-                        <span class="dot"></span>
-                    </div>
-                </div>
-
-                <div class="rs-card-section rs-body-section">
-                    <div class="value-display">
-                        <span>عدد</span>
-                        <span id="displayValue" class="large-number">۲۰</span>
-                        <span>انتخاب شده</span>
-                        <span class="info-icon">؟</span>
-                    </div>
-
-                    <div class="slider-wrapper">
-                        <input type="range" id="rangeInput" min="10" max="100" step="10" value="20">
-                        <div class="slider-labels" id="labelContainer"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <div style="height: 100px;"></div>
-
-    </div> <script src="js/main.js"></script>
-</body>
+      <div style="height: 100px"></div>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
 </html>
