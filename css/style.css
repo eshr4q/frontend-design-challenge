@@ -726,140 +726,233 @@ input[name="tab-group"] {
 }
 
 /* =========================================
-   RANGE SLIDER
+   RANGE SLIDER (Desktop Default)
    ========================================= */
-.range-slider-section {
-  width: 100%;
-}
+.range-slider-section { width: 100%; }
 
-.rs-body-section {
-  padding: 22px 52px 38px 53px;
-}
+.rs-body-section { padding: 22px 52px 38px 53px; }
 
 .value-display {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  color: var(--deep-green);
-  font-weight: 700;
-  margin-bottom: 23px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    color: var(--deep-green); font-weight: 700; margin-bottom: 23px;
 }
-.large-number {
-  color: var(--deep-green);
-  font-weight: 900;
-  font-size: 44px;
-  line-height: 1;
+.large-number { 
+    color: var(--deep-green); font-weight: 900; font-size: 44px; line-height: 1; 
 }
 .info-icon {
-  width: 22px;
-  height: 22px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  color: var(--white);
-  font-weight: 900;
-  font-size: 12px;
-  background: var(--deep-green);
-}
-.slider-wrapper {
-  background: var(--light-green);
-  border-radius: 14px;
-  padding: 18px;
-  position: relative;
+    width: 22px; height: 22px; display: grid; place-items: center; border-radius: 50%;
+    color: var(--white); font-weight: 900; font-size: 12px; background: var(--deep-green);
 }
 
-#rangeInput,
-.slider-labels {
-  direction: rtl;
+/* Wrapper: Padding adjusted to accommodate inline 10/100 */
+.slider-wrapper { 
+    background: var(--light-green); border-radius: 14px; 
+    padding: 28px 50px 14px; /* Side padding pushes inner content in */
+    position: relative; 
 }
-#rangeInput {
-  width: 100%;
-  margin: 0;
-  appearance: none;
-  background: transparent;
-  outline: none;
-  --progress: 0%;
-  display: block;
+
+#rangeInput, .slider-labels { direction: rtl; }
+
+#rangeInput { 
+    width: 100%; margin: 0; appearance: none; background: transparent; outline: none; 
+    --progress: 0%; display: block; z-index: 2; position: relative;
 }
+
 #rangeInput::-webkit-slider-runnable-track {
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(
-    to left,
-    var(--deep-green) 0%,
-    var(--deep-green) var(--progress),
-    var(--white) var(--progress),
-    var(--white) 100%
-  );
+    height: 2px; border-radius: 999px;
+    background: linear-gradient(to left, var(--deep-green) 0%, var(--deep-green) var(--progress), var(--white) var(--progress), var(--white) 100%);
 }
 #rangeInput::-moz-range-track {
-  height: 2px;
-  border-radius: 999px;
-  background: linear-gradient(
-    to left,
-    var(--deep-green) 0%,
-    var(--deep-green) var(--progress),
-    var(--white) var(--progress),
-    var(--white) 100%
-  );
+    height: 2px; border-radius: 999px;
+    background: linear-gradient(to left, var(--deep-green) 0%, var(--deep-green) var(--progress), var(--white) var(--progress), var(--white) 100%);
 }
 #rangeInput::-webkit-slider-thumb {
-  appearance: none;
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background: var(--deep-green);
-  margin-top: -5px;
-  cursor: pointer;
-  box-shadow: 0 0 0 4px var(--light-green);
+    appearance: none; width: 12px; height: 12px; border-radius: 50%;
+    background: var(--deep-green); margin-top: -5px; cursor: pointer; 
+    box-shadow: 0 0 0 4px var(--light-green);
 }
 #rangeInput::-moz-range-thumb {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  border: none;
-  background: var(--deep-green);
-  cursor: pointer;
-}
-.slider-labels {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 4px 0;
-  font-weight: 800;
-  color: var(--deep-green);
-  opacity: 0.8;
-  font-size: 12px;
-  user-select: none;
-}
-.slider-labels span {
-  min-width: 20px;
-  text-align: center;
+    width: 12px; height: 12px; border-radius: 50%; border: none; 
+    background: var(--deep-green); cursor: pointer;
 }
 
-/* Responsive adjustments */
+/* --- Labels Styling (Desktop) --- */
+.slider-labels {
+    display: flex; justify-content: space-between; 
+    margin-top: 10px;
+    font-weight: 800; color: var(--deep-green); font-size: 12px; user-select: none;
+    position: static; /* Static so absolute children refer to .slider-wrapper */
+}
+
+.slider-labels span { 
+    width: 20px; text-align: center; position: relative; 
+}
+
+/* Desktop Ticks (Above numbers 20-90) */
+.slider-labels span::after {
+    content: ''; position: absolute;
+    top: -10px; left: 50%; transform: translateX(-50%);
+    width: 2px; height: 6px;
+    background-color: var(--deep-green); opacity: 0.2;
+    border-radius: 2px;
+}
+
+/* --- 10 and 100 Inline Logic (Desktop) --- */
+
+/* 10 (Start - Right) */
+.slider-labels span:first-child {
+    position: absolute;
+    right: 15px; /* Positioned inside the right padding of wrapper */
+    top: 20px;   /* Vertically aligned with track */
+    margin: 0;
+}
+.slider-labels span:first-child::after { display: none; }
+
+/* 100 (End - Left) */
+.slider-labels span:last-child {
+    position: absolute;
+    left: 15px; /* Positioned inside the left padding of wrapper */
+    top: 20px;  /* Vertically aligned with track */
+    margin: 0;
+}
+.slider-labels span:last-child::after { display: none; }
+
+
+/* =========================================
+   RESPONSIVE Styles (Mobile)
+   ========================================= */
+
 @media (max-width: 900px) {
-  .signup-content {
-    flex-direction: column-reverse;
-    height: auto;
-  }
-  .signup-brand {
-    border-radius: 24px 24px 0 0;
-  }
-  .signup-form-container {
-    border-radius: 0 0 24px 24px;
-  }
-  .header-content {
-    flex-direction: column-reverse;
-    gap: 20px;
-  }
-  .hero-title {
-    font-size: 2rem;
-  }
-  .tab-content {
-    flex-direction: column-reverse;
-  }
-  .img-col {
-    height: 250px;
-  }
+    .signup-content { flex-direction: column-reverse; height: auto; }
+    .signup-brand { border-radius: 24px 24px 0 0; }
+    .signup-form-container { border-radius: 0 0 24px 24px; }
+    .header-content { flex-direction: column-reverse; gap: 20px; }
+    .hero-title { font-size: 2rem; }
+    .tab-content { flex-direction: column-reverse; }
+    .img-col { height: 250px; }
+}
+
+@media (max-width: 768px) {
+    .section-card, .card-wrapper {
+        padding-left: 0 !important; padding-right: 0 !important; border-radius: 0 !important;
+    }
+    .slider-track {
+        margin-left: 0; margin-right: 0; width: 100%; padding-bottom: 24px;
+    }
+    .slider-strip { gap: 8px; }
+    .slide-unit {
+        flex: 0 0 323px; height: 184px; border-radius: 16px; border-width: 2px;
+    }
+    .slide-caption { padding: 0 20px 20px; }
+    .slide-caption::before {
+        height: 100%; 
+        -webkit-mask-image: linear-gradient(to top, black 0%, black 50%, transparent 100%);
+        mask-image: linear-gradient(to top, black 0%, black 50%, transparent 100%);
+    }
+    .caption-text h3 { font-size: 14px; margin-bottom: 6px; }
+    .caption-text p { font-size: 10px; line-height: 1.4; }
+    .blur-icon {
+        width: 48px; height: 24px; bottom: 75px; border-radius: 6px 0 0 6px;
+    }
+    .blur-icon svg, .blur-icon img { width: 14px; height: 14px; }
+    .slider-nav { margin-top: 16px; gap: 8px; }
+    .nav-arrow { width: 28px; height: 28px; }
+    .nav-arrow img { width: 14px; height: 14px; }
+    .nav-dots { padding: 8px 12px; }
+    .nav-dot { width: 8px; height: 8px; }
+
+    /* --- Mobile Range Slider (Vertical Zigzag) --- */
+    .rs-body-section {
+        display: flex; flex-direction: row-reverse; 
+        justify-content: center; align-items: center; gap: 20px;
+        padding: 40px 20px !important; min-height: 500px;
+    }
+
+    .value-display {
+        flex-direction: column; align-items: flex-end; text-align: right;
+        width: auto; gap: 8px; margin-bottom: 0;
+    }
+    .value-display span:nth-child(1) { order: 1; font-size: 1.2rem; }
+    .large-number { 
+        order: 2; font-size: 5rem; margin: 5px 0; line-height: 1;
+        text-shadow: 0 10px 20px rgba(9, 63, 32, 0.1);
+    }
+    .value-display span:nth-child(3) { 
+        order: 3; display: flex; align-items: center; gap: 8px; font-size: 1.1rem; 
+    }
+    .info-icon { order: 4; display: inline-flex; }
+
+    .slider-wrapper {
+        width: 130px; height: 480px; padding: 0;
+        display: flex; justify-content: center; border-radius: 60px;
+        position: relative;
+    }
+
+    /* Fixed Dimensions for Perfect Alignment */
+    #rangeInput {
+        position: absolute; 
+        width: 440px; /* Exact match with label container height */
+        height: 4px;
+        top: 50%; left: 50%; margin: 0;
+        background: transparent;
+        transform: translate(-50%, -50%) rotate(-90deg);
+    }
+    #rangeInput::-webkit-slider-runnable-track { background: white; height: 4px; border-radius: 2px; }
+    #rangeInput::-moz-range-track { background: white; height: 4px; border-radius: 2px; }
+    #rangeInput::-webkit-slider-thumb {
+        width: 24px; height: 24px; margin-top: -10px;
+        box-shadow: 0 0 0 4px rgba(223, 252, 161, 0.6);
+    }
+
+    /* Reset Labels for Mobile */
+    .slider-labels {
+        position: absolute; 
+        /* Inset 20px to match the calculated 440px height of content (480 - 20 - 20) */
+        inset: 20px 0; 
+        flex-direction: column-reverse; /* 10 at bottom */
+        justify-content: space-between; 
+        margin: 0; padding: 0; z-index: 1;
+    }
+
+    .slider-labels span {
+        width: 100%; height: 24px; display: flex; align-items: center;
+        font-size: 14px; position: relative;
+    }
+
+    /* Reset 10 & 100  */
+    .slider-labels span:first-child,
+    .slider-labels span:last-child {
+        position: relative; top: auto; left: auto; right: auto; margin: 0;
+        justify-content: center; padding: 0;
+    }
+
+    /* Mobile Ticks */
+    .slider-labels span::after {
+        content: ''; display: block; position: absolute; height: 2px; width: 10px;
+        background-color: var(--deep-green); opacity: 0.3;
+        top: 50%; z-index: -1; transform: translateY(-50%); border-radius: 0;
+    }
+
+    /* Zigzag: Odd (Left) */
+    .slider-labels span:nth-child(odd) {
+        justify-content: flex-start; padding-left: 20px;
+    }
+    .slider-labels span:nth-child(odd)::after {
+        left: 45px; right: auto;
+    }
+
+    /* Zigzag: Even (Right) */
+    .slider-labels span:nth-child(even) {
+        justify-content: flex-end; padding-right: 20px;
+    }
+    .slider-labels span:nth-child(even)::after {
+        right: 45px; left: auto;
+    }
+    
+    /* Center First(10) and Last(100) and Remove Ticks */
+    .slider-labels span:first-child { justify-content: center; padding: 0; }
+    .slider-labels span:last-child { justify-content: center; padding: 0; }
+    
+    .slider-labels span:first-child::after, 
+    .slider-labels span:last-child::after { display: none; }
 }
