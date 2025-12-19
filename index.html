@@ -128,62 +128,7 @@
           </div>
         </div>
 
-        <div class="tabs-container">
-          <input type="radio" id="tab-1" name="tab-group" checked />
-          <input type="radio" id="tab-2" name="tab-group" />
-          <input type="radio" id="tab-3" name="tab-group" />
-
-          <div class="tabs-nav">
-            <label for="tab-1" class="tab-label">منو شماره یک</label>
-            <label for="tab-2" class="tab-label">منو شماره دوم</label>
-            <label for="tab-3" class="tab-label">منو شماره سوم</label>
-          </div>
-
-          <div class="tabs-content-area">
-            <div class="tab-content content-1">
-              <div class="text-col">
-                <div
-                  style="
-                    display: flex;
-                    justify-content: flex-end;
-                    align-items: center;
-                    gap: 10px;
-                    margin-bottom: 20px;
-                  "
-                >
-                  <h3 style="margin: 0; font-size: 1.5rem">منو شماره یک</h3>
-                </div>
-                <p>
-                  لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و
-                  با استفاده از طراحان گرافیک است.
-                </p>
-                <a href="#" class="tab-btn">اطلاعات بیشتر </a>
-              </div>
-              <div class="img-col">
-                <img src="assets/images/dog-big.jpeg" alt="Tab 1" />
-                <div class="play-btn"></div>
-              </div>
-            </div>
-            <div class="tab-content content-2">
-              <div class="text-col">
-                <h3>منو شماره دو</h3>
-                <p>توضیحات مربوط به تب دوم در اینجا قرار می‌گیرد.</p>
-              </div>
-              <div class="img-col">
-                <img src="assets/images/dog-big.jpeg" alt="Tab 2" />
-              </div>
-            </div>
-            <div class="tab-content content-3">
-              <div class="text-col">
-                <h3>منو شماره سه</h3>
-                <p>توضیحات مربوط به تب سوم در اینجا قرار می‌گیرد.</p>
-              </div>
-              <div class="img-col">
-                <img src="assets/images/dog-big.jpeg" alt="Tab 3" />
-              </div>
-            </div>
-          </div>
-        </div>
+        <div class="tabs-container" id="dynamicTabsContainer"></div>
       </section>
 
       <section class="section-card">
@@ -284,5 +229,18 @@
       <div style="height: 100px"></div>
     </div>
     <script src="js/main.js"></script>
+    <div class="video-popup" id="videoPopup">
+      <div class="popup-overlay"></div>
+      <div class="popup-content">
+        <button class="popup-close" id="closePopup">✕</button>
+        <h2>پاپ آپ ویدیو</h2>
+        <div class="video-wrapper">
+          <video controls autoplay>
+            <source src="assets/video/avideo.mp4" type="video/mp4" />
+            مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+          </video>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

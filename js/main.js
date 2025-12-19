@@ -1,5 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // --- RANGE SLIDER LOGIC ---
+  /* ==============
+  --- RANGE SLIDER LOGIC ---
+  =============*/
   const rangeInput = document.getElementById("rangeInput");
   const displayValue = document.getElementById("displayValue");
   const labelContainer = document.getElementById("labelContainer");
@@ -46,7 +48,136 @@ document.addEventListener("DOMContentLoaded", () => {
     rangeInput.addEventListener("input", updateSlider);
     updateSlider(); // Run once on load
   }
-  // --- CUSTOM SLIDER LOGIC ---
+
+  /*=============================================
+--- DYNAMIC TABS GENERATOR ------------------------------------------------
+==============*/
+
+  const tabsContainer = document.getElementById("dynamicTabsContainer");
+
+  if (tabsContainer) {
+    const tabsData = [
+      {
+        id: 1,
+        navLabel: "منو شماره یک",
+        navIcon: "assets/icons/FlowerTulip.svg",
+        contentTitle: "منو شماره یک",
+        titleIcon: "assets/icons/FlowerTulip1.svg",
+        desc: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و برای شرایط فعلی تکنولوژی مورد نیاز...",
+        image: "assets/images/1.jpeg",
+        hasPlayBtn: true,
+        link: "#",
+      },
+      {
+        id: 2,
+        navLabel: "منو شماره دوم",
+        navIcon: "assets/icons/Football.svg",
+        contentTitle: "منو شماره دو",
+        titleIcon: "assets/icons/FlowerTulip1.svg",
+        desc: "لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است.",
+        image: "assets/images/dog-big.jpeg",
+        hasPlayBtn: false,
+        link: "#",
+      },
+      {
+        id: 3,
+        navLabel: "منو شماره سوم",
+        navIcon: "assets/icons/Flag.svg",
+        contentTitle: "منو شماره سه",
+        titleIcon: "assets/icons/FlowerTulip1.svg",
+        desc: "توضیحات مربوط به تب سوم در اینجا قرار می‌گیرد.",
+        image: "assets/images/dog-big.jpeg",
+        hasPlayBtn: false,
+        link: "#",
+      },
+      {
+        id: 4,
+        navLabel: "منو شماره چهارم",
+        navIcon: "assets/icons/Feather.svg",
+        contentTitle: "منو شماره چهارم",
+        titleIcon: "assets/icons/FlowerTulip1.svg",
+        desc: "توضیحات مربوط به تب چهارم در اینجا قرار می‌گیرد.",
+        image: "assets/images/dog-big.jpeg",
+        hasPlayBtn: false,
+        link: "#",
+      },
+    ];
+
+    const radiosHTML = tabsData
+      .map(
+        (item) =>
+          `<input type="radio" id="tab-${item.id}" name="tab-group" ${
+            item.id === 1 ? "checked" : ""
+          } />`
+      )
+      .join("");
+
+    const navLabelsHTML = tabsData
+      .map(
+        (item) => `
+      <label for="tab-${item.id}" class="tab-label">
+          <img src="${item.navIcon}" class="nav-icon" alt="icon">
+          ${item.navLabel}
+      </label>`
+      )
+      .join("");
+
+    const contentsHTML = tabsData
+      .map((item) => {
+        return `
+      <div class="tab-content content-${item.id}">
+          <div class="text-col">
+              <div class="tab-title-wrapper">
+                  <img src="${item.titleIcon}" alt="icon" class="title-icon" />
+                  <h3>${item.contentTitle}</h3>
+              </div>
+              
+              <p>${item.desc}</p>
+              
+              <a href="${item.link}" class="tab-btn">
+                  اطلاعات بیشتر
+                  <img src="assets/icons/ArrowLeft.svg" class="btn-icon" alt="arrow">
+              </a>
+          </div>
+          
+          <div class="img-col">
+              <div class="img-frame">
+                  <img src="${item.image}" alt="Tab ${item.id}" />
+                  ${item.hasPlayBtn ? '<div class="play-btn"></div>' : ""}
+              </div>
+          </div>
+      </div>`;
+      })
+      .join("");
+
+    tabsContainer.innerHTML = `
+      ${radiosHTML}
+      <div class="tabs-nav">
+          ${navLabelsHTML}
+      </div>
+      <div class="tabs-content-area">
+          ${contentsHTML}
+      </div>
+  `;
+
+    setTimeout(() => {
+      const playBtns = document.querySelectorAll(".play-btn");
+      const videoPopup = document.getElementById("videoPopup");
+
+      if (videoPopup && playBtns.length > 0) {
+        playBtns.forEach((btn) => {
+          btn.addEventListener("click", () => {
+            videoPopup.classList.add("active");
+            document.body.style.overflow = "hidden";
+          });
+        });
+      }
+    }, 100);
+  }
+
+  /*==============================
+   --- CUSTOM SLIDER LOGIC ------------------------------------
+   ===========*/
   const track = document.getElementById("track");
   if (track) {
     const slides = Array.from(track.children);
@@ -96,5 +227,44 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => goToSlide(0), 100);
 
     window.addEventListener("resize", () => goToSlide(currentIndex));
+  }
+
+  /*===========
+  --- VIDEO POPUP LOGIC ---
+  ==============*/
+  const videoPopup = document.getElementById("videoPopup");
+  const playBtns = document.querySelectorAll(".play-btn");
+  const closePopupBtn = document.getElementById("closePopup");
+  const popupOverlay = document.querySelector(".popup-overlay");
+
+  if (videoPopup) {
+    function openVideoPopup() {
+      videoPopup.classList.add("active");
+      document.body.style.overflow = "hidden";
+    }
+
+    function closeVideoPopup() {
+      videoPopup.classList.remove("active");
+      document.body.style.overflow = "auto";
+      const video = videoPopup.querySelector("video");
+      if (video) {
+        video.pause();
+        video.currentTime = 0;
+      }
+    }
+    playBtns.forEach((btn) => {
+      btn.addEventListener("click", openVideoPopup);
+    });
+    if (closePopupBtn) {
+      closePopupBtn.addEventListener("click", closeVideoPopup);
+    }
+    if (popupOverlay) {
+      popupOverlay.addEventListener("click", closeVideoPopup);
+    }
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && videoPopup.classList.contains("active")) {
+        closeVideoPopup();
+      }
+    });
   }
 });
