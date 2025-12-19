@@ -871,7 +871,7 @@ input[name="tab-group"] {
   height: 2px;
   border-radius: 999px;
   background: linear-gradient(
-    to left,
+    to right,
     var(--deep-green) 0%,
     var(--deep-green) var(--progress),
     var(--white) var(--progress),
@@ -907,11 +907,12 @@ input[name="tab-group"] {
   font-size: 12px;
   user-select: none;
   position: static;
+  padding: 0 70px;
 }
 
 .slider-labels span {
-  width: 20px;
-  text-align: center;
+  /* width: 20px;
+  text-align: center; */
   position: relative;
 }
 
@@ -1095,12 +1096,12 @@ input[name="tab-group"] {
   /* range slider*/
   .rs-body-section {
     display: flex; flex-direction: row-reverse; 
-    justify-content: center; align-items: center; gap: 20px;
+    justify-content: center; align-items: center; gap: 53px;
     padding: 40px 20px !important; min-height: 500px;
   }
 
   .value-display {
-    flex-direction: column; align-items: flex-end; text-align: right;
+    flex-direction: column; text-align: right;
     width: auto; gap: 8px; margin-bottom: 0;
   }
   .value-display span:nth-child(1) { order: 1; font-size: 1.2rem; }
@@ -1114,8 +1115,8 @@ input[name="tab-group"] {
   .info-icon { order: 4; display: inline-flex; }
 
   .slider-wrapper {
-    width: 130px; height: 480px; padding: 0;
-    display: flex; justify-content: center; border-radius: 60px;
+    width: 100px; height: 480px; padding: 0;
+    display: flex; justify-content: center; border-radius: 16px;
     position: relative;
   }
 
@@ -1125,7 +1126,7 @@ input[name="tab-group"] {
     height: 4px;
     top: 50%; left: 50%; margin: 0;
     background: transparent;
-    transform: translate(-50%, -50%) rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
   }
   #rangeInput::-webkit-slider-runnable-track { background: white; height: 4px; border-radius: 2px; }
   #rangeInput::-moz-range-track { background: white; height: 4px; border-radius: 2px; }
@@ -1135,8 +1136,8 @@ input[name="tab-group"] {
   }
 
   .slider-labels {
-    position: absolute; 
-    inset: 20px 0; 
+    /* position: absolute;  */
+    inset: 0px 0; 
     flex-direction: column-reverse; 
     justify-content: space-between; 
     margin: 0; padding: 0; z-index: 1;
@@ -1153,7 +1154,7 @@ input[name="tab-group"] {
   .slider-labels span::after {
     content: ''; display: block; position: absolute; height: 2px; width: 10px;
     background-color: var(--deep-green); opacity: 0.3;
-    top: 50%; z-index: -1; transform: translateY(-50%); border-radius: 0;
+    top: 50%; z-index: -1; transform: translateY(50%); border-radius: 0;
   }
   .slider-labels span:nth-child(odd) { justify-content: flex-start; padding-left: 20px; }
   .slider-labels span:nth-child(odd)::after { left: 45px; right: auto; }
