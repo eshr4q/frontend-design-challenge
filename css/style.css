@@ -974,6 +974,115 @@ input[name="tab-group"] {
   }
 }
 
+/* --- Tooltip Styles (Hover Version) --- */
+
+.selection-row {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: help; 
+}
+
+.info-icon {
+  width: 22px; height: 22px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: var(--white);
+  background: var(--deep-green);
+  font-weight: 900; font-size: 12px;
+  transition: transform 0.2s;
+}
+
+.tooltip-box {
+  position: absolute;
+  bottom: 45px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.8);
+  width: 280px;
+  background-color: var(--white);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  pointer-events: none;
+}
+
+
+.selection-row:hover .tooltip-box {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) scale(1);
+  bottom: 55px;
+  pointer-events: auto;
+}
+
+
+.tooltip-header {
+  background-color: var(--light-green); 
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 16px 16px 0 0;
+}
+
+.tooltip-header h4 {
+  margin: 0;
+  color: var(--deep-green);
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.close-tooltip {
+  display: none; 
+}
+
+
+.tooltip-body {
+  padding: 16px;
+  text-align: right;
+  background-color: var(--white);
+  border-radius: 0 0 16px 16px;
+}
+
+.tooltip-body p {
+  font-size: 0.9rem;
+  color: var(--sec-txt);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  bottom: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 16px;
+  height: 16px;
+  background-color: var(--white);
+  z-index: 99;
+}
+
+
+.range-slider-section .card-wrapper,
+.range-slider-section .rs-body-section {
+    overflow: visible !important; 
+}
+
+
+.range-slider-section {
+    position: relative;
+    z-index: 50;
+}
+
+.tooltip-box {
+    z-index: 1000 !important;
+}
+
+
 @media (max-width: 768px) {
   .section-card,
   .card-wrapper {
@@ -1163,4 +1272,19 @@ input[name="tab-group"] {
   .slider-labels span:first-child { justify-content: center; padding: 0; }
   .slider-labels span:last-child { justify-content: center; padding: 0; }
   .slider-labels span:first-child::after, .slider-labels span:last-child::after { display: none; }
+
+  .tooltip-box {
+    width: 250px;
+    left: -20px; 
+    transform: translateX(0) scale(0.8);
+}
+
+.selection-row:hover .tooltip-box {
+    transform: translateX(0) scale(1);
+}
+
+.tooltip-arrow {
+    left: 28px; 
+    transform: rotate(45deg); /* ریست کردن ترنسلیت */
+}
 }
