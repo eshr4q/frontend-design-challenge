@@ -489,4 +489,65 @@ document.addEventListener("DOMContentLoaded", () => {
       if (ruleSpecial) ruleSpecial.classList.remove("valid");
     });
   }
+    /* =========================================
+     LOGIC FOR CANCEL BUTTON (ERROR STATE)
+     ========================================= */
+     const btnCancel = document.querySelector(".btn-cancel");
+     const errorMessage = document.getElementById("errorMessage");
+     const backFromErrorBtn = document.getElementById("backFromErrorBtn");
+   
+
+     if (btnCancel) {
+       btnCancel.addEventListener("click", (e) => {
+         e.preventDefault(); 
+   
+
+         signupForm.classList.add("form-fade-out");
+   
+
+         if (signupContent) {
+           signupContent.classList.add("error-state");
+         }
+
+         setTimeout(() => {
+           signupForm.style.display = "none";
+           
+           if (errorMessage) {
+             errorMessage.style.display = "flex";
+             
+
+             const iconBox = errorMessage.querySelector(".success-icon-box");
+             if (iconBox) {
+               iconBox.style.animation = "none";
+               iconBox.offsetHeight;
+               iconBox.style.animation = "popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards";
+             }
+           }
+         }, 400);
+       });
+     }
+   
+ 
+     if (backFromErrorBtn) {
+       backFromErrorBtn.addEventListener("click", (e) => {
+         e.preventDefault();
+
+         if (signupContent) {
+           signupContent.classList.remove("error-state");
+         }
+   
+ 
+         if (errorMessage) errorMessage.style.display = "none";
+   
+         if (signupForm) {
+           signupForm.style.display = "block";
+           setTimeout(() => {
+             signupForm.classList.remove("form-fade-out");
+           }, 50);
+  
+           signupForm.reset(); 
+         }
+       });
+     }
+   
 });

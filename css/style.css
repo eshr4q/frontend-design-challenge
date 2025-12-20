@@ -1046,13 +1046,8 @@ input[name="tab-group"] {
    SUCCESS STATE ANIMATION
    ========================================= */
 
-.signup-brand {
-  transition: all 0.6s cubic-bezier(0.65, 0, 0.35, 1);
-  max-width: 50%;
-  opacity: 1;
-}
-
-.signup-content.success-state .signup-brand {
+.signup-content.success-state .signup-brand,
+.signup-content.error-state .signup-brand {
   flex: 0 !important;
   max-width: 0 !important;
   padding: 0 !important;
@@ -1060,7 +1055,8 @@ input[name="tab-group"] {
   overflow: hidden;
 }
 
-.signup-content.success-state .signup-form-container {
+.signup-content.success-state .signup-form-container,
+.signup-content.error-state .signup-form-container {
   flex: 1;
   display: flex;
   align-items: center;
@@ -1068,10 +1064,11 @@ input[name="tab-group"] {
   transition: all 0.6s ease;
 }
 
-.success-message {
-  width: 100%;
-  max-width: 500px;
+
+.success-icon-box.error-theme {
+  background-color: #FFD4D4;
 }
+
 
 @keyframes flip-words {
   0% {
