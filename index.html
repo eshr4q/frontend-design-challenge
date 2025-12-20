@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design Challenge - Final</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="site-container">
+      <header class="site-header">
+        <div class="header-content">
+          <div class="header-note">فاطمه حسینی</div>
+
+          <!-- Task Menu Container -->
+          <div class="task-menu-container">
+            <button class="menu-btn" id="taskMenuBtn">
+              <img
+                src="assets/icons/Burger.svg"
+                class="menu-icon hamburger"
+                alt="menu"
+              />
+
+              <img
+                src="assets/icons/Closebtn.svg"
+                class="menu-icon close-icon"
+                alt="close"
+                style="display: none"
+              />
+              <span class="btn-text">منو تسک ها</span>
+            </button>
+
+            <div class="task-menu-dropdown" id="taskMenuDropdown">
+              <a href="#" data-target=".slider-track" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">اسلایدر</span>
+              </a>
+
+              <a href="#" data-target=".tabs-container" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">تب منو</span>
+              </a>
+
+              <a href="#" data-target=".signup-content" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">فرم ثبت نام</span>
+              </a>
+
+              <a href="#" data-target=".range-slider-section" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">رنج اسلایدر</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="hero-section">
+        <h1 class="hero-title">
+          بزار کُدت
+
+          <img src="assets/images/code.png" alt="code" class="hero-icon" />
+          حرف بزنه...
+        </h1>
+        <p class="hero-subtitle">صفحه ای ساده اما با جزئیات ریز!</p>
+
+        <img src="assets/icons/Vector.svg" alt="Vector" class="hero-vektor" />
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div class="title-en">Slider</div>
+          <div class="title-fa">
+            <span>اسلایدر</span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="slider-track">
+          <div class="slider-window">
+            <div class="slider-strip" id="track">
+              <div class="slide-unit">
+                <img src="assets/images/dog-big.jpeg" alt="Nature" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-unit">
+                <img src="assets/images/mountain-big.jpeg" alt="Mountain" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-unit">
+                <img src="assets/images/dog-big.jpeg" alt="Sky" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="slide-unit">
+                <img src="assets/images/sunflowers.png" alt="Fields" />
+                <div class="slide-caption">
+                  <div class="blur-icon">
+                    <img src="assets/icons/Mountains.svg" alt="Mountain" />
+                  </div>
+
+                  <div class="caption-text">
+                    <h3>تصویری از جنس آرامش</h3>
+                    <p>
+                      تصویری زیبا از گل های آفتابگردون در ناحیه دشت های زاگرس
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="slider-nav">
+            <button class="nav-arrow" id="btnNext">
+              <img src="assets/icons/CaretLeft.svg" alt="Next" />
+            </button>
+
+            <div class="nav-dots" id="dotWrapper"></div>
+
+            <button class="nav-arrow" id="btnPrev">
+              <img src="assets/icons/CaretLeft.svg" alt="Prev" />
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div class="title-en">TabMenu</div>
+          <div class="title-fa">
+            <span>تب منو</span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="tabs-container" id="dynamicTabsContainer"></div>
+      </section>
+
+      <section class="section-card">
+        <div class="section-header">
+          <div class="title-en">Signup Form</div>
+          <div class="title-fa">
+            <span>فرم ثبت نام</span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <div class="signup-content">
+          <div class="signup-brand">
+            <h2>
+              Let’s Make <br />
+              a
+              <span class="highlight-text word-container">
+                <span class="word-flipper">
+                  <span>Easier</span>
+                  <span>Better</span>
+                </span>
+              </span>
+              <br />
+              World <br />
+              together
+            </h2>
+            <div class="smiley-badge">
+              <img src="assets/icons/Smiley.svg" alt="smile" />
+            </div>
+          </div>
+
+          <div class="signup-form-container">
+            <form action="#">
+              <div class="form-group">
+                <label class="form-label">نام کاربری</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  placeholder="مثلاً: حمیدرضا"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">شماره تماس</label>
+                <input
+                  type="tel"
+                  class="form-input"
+                  placeholder="مثلاً: ۰۹۱۲۱۱۴۴۵۵۸۸"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">رمز عبور</label>
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    class="form-input"
+                    id="password"
+                    placeholder="رمز عبور مورد نظر خود را وارد کنید ..."
+                  />
+                  <button
+                    type="button"
+                    class="toggle-password"
+                    id="togglePassword"
+                  >
+                    <img
+                      src="assets/icons/EyeClosed.svg"
+                      alt="show"
+                      class="eye-open"
+                    />
+                    <img
+                      src="assets/icons/Eye.svg"
+                      alt="hide"
+                      class="eye-closed"
+                    />
+                  </button>
+                </div>
+              </div>
+
+              <ul class="password-rules">
+                <li id="rule-length">
+                  <span class="rule-icon">
+                    <span class="dash">-</span>
+                    <img
+                      src="assets/icons/CheckCircle.svg"
+                      alt="valid"
+                      class="check-icon"
+                    />
+                  </span>
+                  <span class="rule-text">حداقل باید ۸ حرف باشد</span>
+                </li>
+                <li id="rule-number">
+                  <span class="rule-icon">
+                    <span class="dash">-</span>
+                    <img
+                      src="assets/icons/CheckCircle.svg"
+                      alt="valid"
+                      class="check-icon"
+                    />
+                  </span>
+                  <span class="rule-text">باید شامل عدد باشد</span>
+                </li>
+                <li id="rule-special">
+                  <span class="rule-icon">
+                    <span class="dash">-</span>
+                    <img
+                      src="assets/icons/CheckCircle.svg"
+                      alt="valid"
+                      class="check-icon"
+                    />
+                  </span>
+                  <span class="rule-text">شامل حروف خاص مثل : ؟-#% باشد</span>
+                </li>
+              </ul>
+
+              <div class="form-actions">
+                <button
+                  type="submit"
+                  class="btn-submit"
+                  id="submitBtn"
+                  disabled
+                >
+                  ثبت نام
+                </button>
+                <button type="button" class="btn-cancel">انصراف</button>
+              </div>
+            </form>
+            <div class="success-message" id="successMessage" style="display: none;">
+              <div class="success-icon-box">
+                <img src="assets/icons/Smiley.svg" alt="Success" class="success-smiley">
+              </div>
+              <h3 class="success-title">ثبت نام شما با موفقیت انجام شد!</h3>
+              <p class="success-desc">به مجموعه ما خوش آمدید...</p>
+              <button type="button" class="btn-back-outline" id="backToFormBtn">بازگشت</button>
+            </div>
+
+<div class="success-message error-mode" id="errorMessage" style="display: none;">
+  <div class="success-icon-box error-theme">
+
+    <img src="assets/icons/SmileySad.svg" alt="Error" >
+  </div>
+  <h3 class="success-title">مشکلی پیش آمده!</h3>
+  <p class="success-desc">ثبت نام شما انجام نشد...</p>
+  <button type="button" class="btn-back-outline" id="backFromErrorBtn">بازگشت</button>
+</div>
+
+          </div>
+        </div>
+      </section>
+
+      <section class="range-slider-section">
+        <div class="card-wrapper">
+          <div class="rs-card-section rs-header-section">
+            <div class="title-en">Range Slider</div>
+            <div class="title-fa">
+              <span>رنج اسلایدر</span>
+              <span class="dot"></span>
+            </div>
+          </div>
+
+          <div class="rs-card-section rs-body-section">
+            <div class="value-display">
+              <span>عدد</span>
+              <span id="displayValue" class="large-number">۲۰</span>
+
+              <div class="selection-row">
+                <span>انتخاب شده</span>
+                <span class="info-icon">؟</span>
+
+                <div class="tooltip-box">
+                  <div class="tooltip-header">
+                    <span class="close-tooltip">✕</span>
+                    <h4>متن راهنما</h4>
+                  </div>
+                  <div class="tooltip-body">
+                    <p>
+                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ،
+                      و با استفاده از طراحان گرافیک است.
+                    </p>
+                  </div>
+                  <div class="tooltip-arrow"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="slider-wrapper">
+              <input
+                type="range"
+                id="rangeInput"
+                min="10"
+                max="100"
+                step="10"
+                value="20"
+              />
+              <div class="slider-labels" id="labelContainer"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+ 
+
+      <div style="height: 100px"></div>
+      <img src="assets/images/footer.png" alt="Success" class="footer" >
+    </div>
+    <script src="js/main.js"></script>
+    <div class="video-popup" id="videoPopup">
+      <div class="popup-overlay"></div>
+      <div class="popup-content">
+        <button class="popup-close" id="closePopup">✕</button>
+        <h2>پاپ آپ ویدیو</h2>
+        <div class="video-wrapper">
+          <video controls autoplay>
+            <source src="assets/video/avideo.mp4" type="video/mp4" />
+            مرورگر شما از ویدیو پشتیبانی نمی‌کند.
+          </video>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
