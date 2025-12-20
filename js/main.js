@@ -1,4 +1,64 @@
 document.addEventListener("DOMContentLoaded", () => {
+  /* =========================================
+     TASK MENU LOGIC
+     ========================================= */
+  const taskMenuBtn = document.getElementById("taskMenuBtn");
+  const taskMenuContainer = document.querySelector(".task-menu-container");
+  const hamburgerIcon = document.querySelector(".hamburger");
+  const closeIcon = document.querySelector(".close-icon");
+  const menuItems = document.querySelectorAll(".menu-item");
+
+  if (taskMenuBtn) {
+    taskMenuBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggleMenu();
+    });
+
+    function toggleMenu() {
+      const isOpen = taskMenuContainer.classList.contains("open");
+
+      if (isOpen) {
+        taskMenuContainer.classList.remove("open");
+        taskMenuBtn.classList.remove("active");
+        hamburgerIcon.style.display = "block";
+        closeIcon.style.display = "none";
+      } else {
+        taskMenuContainer.classList.add("open");
+        taskMenuBtn.classList.add("active");
+        hamburgerIcon.style.display = "none";
+        closeIcon.style.display = "block";
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      if (
+        taskMenuContainer.classList.contains("open") &&
+        !taskMenuContainer.contains(e.target)
+      ) {
+        toggleMenu();
+      }
+    });
+
+    menuItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        e.preventDefault();
+        const targetSelector = item.getAttribute("data-target");
+        const targetSection = document.querySelector(targetSelector);
+
+        if (targetSection) {
+          toggleMenu();
+          const offsetTop =
+            targetSection.getBoundingClientRect().top + window.scrollY - 20;
+
+          window.scrollTo({
+            top: offsetTop,
+            behavior: "smooth",
+          });
+        }
+      });
+    });
+  }
+
   /* ==============
   --- RANGE SLIDER LOGIC ---
   =============*/

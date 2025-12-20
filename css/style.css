@@ -141,6 +141,107 @@ a {
 }
 
 /* =========================================
+   TASK MENU STYLES
+   ========================================= */
+
+.task-menu-container {
+  position: relative;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.menu-btn {
+  background-color: var(--light-green);
+  color: var(--deep-green);
+  border: none;
+  padding: 8px 21px;
+  border-radius: 32px;
+  font-weight: bold;
+  gap: 6px;
+  font-family: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+
+  transition: all 0.3s ease;
+}
+
+.menu-btn.active {
+  background-color: var(--deep-green);
+  color: var(--light-green);
+}
+
+.menu-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.menu-btn.active .menu-icon {
+  filter: brightness(0) saturate(100%) invert(91%) sepia(8%) saturate(996%)
+    hue-rotate(39deg) brightness(103%) contrast(102%); /* تبدیل به رنگ لایت گرین حدودی */
+}
+
+.task-menu-dropdown {
+  position: absolute;
+  top: 50px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.task-menu-container.open .task-menu-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.menu-item {
+  background-color: var(--light-green);
+  color: var(--deep-green);
+  padding: 8px 21px;
+  border-radius: 32px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  gap: 6px;
+}
+
+.item-circle {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--deep-green);
+  border-radius: 50%;
+  display: inline-block;
+  transition: all 0.2s;
+}
+
+.menu-item:hover {
+  background-color: var(--deep-green);
+  color: var(--light-green);
+}
+
+.menu-item:hover .item-circle {
+  background-color: var(--light-green);
+  border-color: var(--light-green);
+  box-shadow: 0 0 0 2px var(--deep-green);
+}
+
+/* =========================================
    HEADER & HERO
    ========================================= */
 .site-header {
@@ -154,25 +255,12 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 24px;
 }
 .header-note {
   font-size: 0.9rem;
   color: var(--sec-txt);
   font-weight: 500;
-}
-
-.menu-btn {
-  background-color: var(--light-green);
-  color: var(--deep-green);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 12px;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-family: inherit;
 }
 
 .hero-section {
@@ -1177,10 +1265,7 @@ input[name="tab-group"] {
     padding: 50px 24px 40px 24px;
     flex: none;
   }
-  .header-content {
-    flex-direction: column-reverse;
-    gap: 20px;
-  }
+
   .hero-title {
     font-size: 2rem;
   }
@@ -1293,6 +1378,15 @@ input[name="tab-group"] {
 }
 
 @media (max-width: 768px) {
+  .site-header {
+    position: relative;
+    z-index: 1001;
+  }
+  .task-menu-dropdown {
+    width: 160px;
+    left: auto;
+    right: 0;
+  }
   .section-card,
   .card-wrapper {
     padding-left: 0 !important;

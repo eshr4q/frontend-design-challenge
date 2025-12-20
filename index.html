@@ -12,8 +12,46 @@
       <header class="site-header">
         <div class="header-content">
           <div class="header-note">فاطمه حسینی</div>
-          <div class="header-action">
-            <button class="menu-btn">منو تسک ها</button>
+
+          <!-- Task Menu Container -->
+          <div class="task-menu-container">
+            <button class="menu-btn" id="taskMenuBtn">
+              <img
+                src="assets/icons/Burger.svg"
+                class="menu-icon hamburger"
+                alt="menu"
+              />
+
+              <img
+                src="assets/icons/Closebtn.svg"
+                class="menu-icon close-icon"
+                alt="close"
+                style="display: none"
+              />
+              <span class="btn-text">منو تسک ها</span>
+            </button>
+
+            <div class="task-menu-dropdown" id="taskMenuDropdown">
+              <a href="#" data-target=".slider-track" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">اسلایدر</span>
+              </a>
+
+              <a href="#" data-target=".tabs-container" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">تب منو</span>
+              </a>
+
+              <a href="#" data-target=".signup-content" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">فرم ثبت نام</span>
+              </a>
+
+              <a href="#" data-target=".range-slider-section" class="menu-item">
+                <span class="item-circle"></span>
+                <span class="item-text">رنج اسلایدر</span>
+              </a>
+            </div>
           </div>
         </div>
       </header>
@@ -144,14 +182,14 @@
           <div class="signup-brand">
             <h2>
               Let’s Make <br />
-              a               
+              a
               <span class="highlight-text word-container">
                 <span class="word-flipper">
                   <span>Easier</span>
                   <span>Better</span>
                 </span>
               </span>
-               <br />
+              <br />
               World <br />
               together
             </h2>
