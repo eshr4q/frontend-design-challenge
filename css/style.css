@@ -63,6 +63,7 @@ a {
   width: 100%;
   padding: 0 244px;
   margin: 0 auto;
+  flex: 1;
 }
 
 /* Responsive Padding */
@@ -77,6 +78,12 @@ a {
   }
 }
 
+.footer {
+  width: 100%;
+  max-width: 776px;
+  height: 217px;
+  margin: 0 auto;
+}
 /* =========================================
    SHARED COMPONENT STYLES
    ========================================= */
@@ -1850,5 +1857,9 @@ input[name="tab-group"] {
   .tooltip-arrow {
     left: 28px;
     transform: rotate(45deg);
+  }
+  .footer {
+    height: auto;
+    aspect-ratio: 776/217;
   }
 }
