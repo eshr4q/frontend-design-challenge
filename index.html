@@ -148,7 +148,9 @@
               World <br />
               together
             </h2>
-            <div class="smiley-badge"></div>
+            <div class="smiley-badge">
+              <img src="assets/icons/Smiley.svg" alt="smile" />
+            </div>
           </div>
 
           <div class="signup-form-container">
@@ -169,24 +171,81 @@
                   placeholder="مثلاً: ۰۹۱۲۱۱۴۴۵۵۸۸"
                 />
               </div>
+
               <div class="form-group">
                 <label class="form-label">رمز عبور</label>
-                <input
-                  type="password"
-                  class="form-input"
-                  placeholder="رمز عبور ..."
-                />
+                <div class="password-wrapper">
+                  <input
+                    type="password"
+                    class="form-input"
+                    id="password"
+                    placeholder="رمز عبور مورد نظر خود را وارد کنید ..."
+                  />
+                  <button
+                    type="button"
+                    class="toggle-password"
+                    id="togglePassword"
+                  >
+                    <img
+                      src="assets/icons/EyeClosed.svg"
+                      alt="show"
+                      class="eye-open"
+                    />
+                    <img
+                      src="assets/icons/Eye.svg"
+                      alt="hide"
+                      class="eye-closed"
+                    />
+                  </button>
+                </div>
               </div>
-              <ul
-                class="password-rules"
-                style="font-size: 0.8rem; color: #777; margin-bottom: 20px"
-              >
-                <li>- حداقل باید ۸ حرف باشد</li>
-                <li>- باید شامل عدد باشد</li>
+
+              <ul class="password-rules">
+                <li id="rule-length">
+                  <span class="rule-icon">
+                    <span class="dash">-</span>
+                    <img
+                      src="assets/icons/CheckCircle.svg"
+                      alt="valid"
+                      class="check-icon"
+                    />
+                  </span>
+                  <span class="rule-text">حداقل باید ۸ حرف باشد</span>
+                </li>
+                <li id="rule-number">
+                  <span class="rule-icon">
+                    <span class="dash">-</span>
+                    <img
+                      src="assets/icons/CheckCircle.svg"
+                      alt="valid"
+                      class="check-icon"
+                    />
+                  </span>
+                  <span class="rule-text">باید شامل عدد باشد</span>
+                </li>
+                <li id="rule-special">
+                  <span class="rule-icon">
+                    <span class="dash">-</span>
+                    <img
+                      src="assets/icons/CheckCircle.svg"
+                      alt="valid"
+                      class="check-icon"
+                    />
+                  </span>
+                  <span class="rule-text">شامل حروف خاص مثل : ؟-#% باشد</span>
+                </li>
               </ul>
+
               <div class="form-actions">
+                <button
+                  type="submit"
+                  class="btn-submit"
+                  id="submitBtn"
+                  disabled
+                >
+                  ثبت نام
+                </button>
                 <button type="button" class="btn-cancel">انصراف</button>
-                <button type="submit" class="btn-submit">ثبت نام</button>
               </div>
             </form>
           </div>
@@ -207,23 +266,23 @@
             <div class="value-display">
               <span>عدد</span>
               <span id="displayValue" class="large-number">۲۰</span>
-              
+
               <div class="selection-row">
-                  <span>انتخاب شده</span>
-                  <span class="info-icon">؟</span>
-                  
-                  <div class="tooltip-box">
-                    <div class="tooltip-header">
-                        <span class="close-tooltip">✕</span>
-                        <h4>متن راهنما</h4>
-                    </div>
-                    <div class="tooltip-body">
-                        <p>
-                            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، 
-                            و با استفاده از طراحان گرافیک است.
-                        </p>
-                    </div>
-                    <div class="tooltip-arrow"></div>
+                <span>انتخاب شده</span>
+                <span class="info-icon">؟</span>
+
+                <div class="tooltip-box">
+                  <div class="tooltip-header">
+                    <span class="close-tooltip">✕</span>
+                    <h4>متن راهنما</h4>
+                  </div>
+                  <div class="tooltip-body">
+                    <p>
+                      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ،
+                      و با استفاده از طراحان گرافیک است.
+                    </p>
+                  </div>
+                  <div class="tooltip-arrow"></div>
                 </div>
               </div>
             </div>

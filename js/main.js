@@ -267,4 +267,80 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  /*==============
+Form --------------
+==============*/
+  // PASSWORD FUNCTIONALITY (Eye + Validation)
+  const passwordInput = document.getElementById("password");
+  const toggleButton = document.getElementById("togglePassword");
+  const ruleLength = document.getElementById("rule-length");
+  const ruleNumber = document.getElementById("rule-number");
+  const ruleSpecial = document.getElementById("rule-special");
+  const usernameInput = document.querySelector('input[placeholder*="حمیدرضا"]');
+  const phoneInput = document.querySelector('input[placeholder*="۰۹۱۲"]');
+  const submitBtn = document.getElementById("submitBtn");
+
+  toggleButton.addEventListener("click", function () {
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      this.classList.add("active");
+    } else {
+      passwordInput.type = "password";
+      this.classList.remove("active");
+    }
+  });
+
+  // Password validation on input
+  passwordInput.addEventListener("input", function () {
+    const value = this.value;
+
+    // Check length (at least 8 characters)
+    if (value.length >= 8) {
+      ruleLength.classList.add("valid");
+    } else {
+      ruleLength.classList.remove("valid");
+    }
+
+    // Check for numbers
+    if (/\d/.test(value)) {
+      ruleNumber.classList.add("valid");
+    } else {
+      ruleNumber.classList.remove("valid");
+    }
+
+    // Check for special characters
+    if (/[!@#$%^&*(),.?":{}|<>؟\-]/.test(value)) {
+      ruleSpecial.classList.add("valid");
+    } else {
+      ruleSpecial.classList.remove("valid");
+    }
+
+    checkFormValidity();
+  });
+
+  function checkFormValidity() {
+    const isUsernameValid = usernameInput.value.trim().length >= 3;
+    const isPhoneValid = /^09\d{9}$/.test(
+      phoneInput.value.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
+    );
+    const isPasswordLengthValid = ruleLength.classList.contains("valid");
+    const isPasswordNumberValid = ruleNumber.classList.contains("valid");
+    const isPasswordSpecialValid = ruleSpecial.classList.contains("valid");
+
+    if (
+      isUsernameValid &&
+      isPhoneValid &&
+      isPasswordLengthValid &&
+      isPasswordNumberValid &&
+      isPasswordSpecialValid
+    ) {
+      submitBtn.disabled = false;
+    } else {
+      submitBtn.disabled = true;
+    }
+  }
+
+  usernameInput.addEventListener("input", checkFormValidity);
+  phoneInput.addEventListener("input", checkFormValidity);
 });
