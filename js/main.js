@@ -284,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (currentIndex > 0) goToSlide(currentIndex - 1);
     });
 
-    setTimeout(() => goToSlide(0), 100);
+    setTimeout(() => goToSlide(1), 100);
 
     window.addEventListener("resize", () => goToSlide(currentIndex));
   }
@@ -327,80 +327,166 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+  /* =========================================
+     FORM VALIDATION & ANIMATION
+     ========================================= */
 
-  /*==============
-Form --------------
-==============*/
-  // PASSWORD FUNCTIONALITY (Eye + Validation)
-  const passwordInput = document.getElementById("password");
+  const signupContent = document.querySelector(".signup-content");
+
+  const signupForm =
+    document.getElementById("mainSignupForm") ||
+    document.querySelector(".signup-form-container form");
+  const submitBtn = document.getElementById("submitBtn");
+  const successMessage = document.getElementById("successMessage");
+  const backToFormBtn = document.getElementById("backToFormBtn");
+  const usernameInput =
+    document.getElementById("username") ||
+    document.querySelector('input[name="username"]') ||
+    document.querySelector('input[type="text"]');
+  const phoneInput =
+    document.getElementById("phone") ||
+    document.querySelector('input[name="phone"]') ||
+    document.querySelector('input[type="tel"]');
+  const passwordInput =
+    document.getElementById("password") ||
+    document.querySelector('input[name="password"]') ||
+    document.querySelector('input[type="password"]');
+
   const toggleButton = document.getElementById("togglePassword");
   const ruleLength = document.getElementById("rule-length");
   const ruleNumber = document.getElementById("rule-number");
   const ruleSpecial = document.getElementById("rule-special");
-  const usernameInput = document.querySelector('input[placeholder*="حمیدرضا"]');
-  const phoneInput = document.querySelector('input[placeholder*="۰۹۱۲"]');
-  const submitBtn = document.getElementById("submitBtn");
 
-  toggleButton.addEventListener("click", function () {
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      this.classList.add("active");
-    } else {
-      passwordInput.type = "password";
-      this.classList.remove("active");
-    }
-  });
-
-  // Password validation on input
-  passwordInput.addEventListener("input", function () {
-    const value = this.value;
-
-    // Check length (at least 8 characters)
-    if (value.length >= 8) {
-      ruleLength.classList.add("valid");
-    } else {
-      ruleLength.classList.remove("valid");
-    }
-
-    // Check for numbers
-    if (/\d/.test(value)) {
-      ruleNumber.classList.add("valid");
-    } else {
-      ruleNumber.classList.remove("valid");
-    }
-
-    // Check for special characters
-    if (/[!@#$%^&*(),.?":{}|<>؟\-]/.test(value)) {
-      ruleSpecial.classList.add("valid");
-    } else {
-      ruleSpecial.classList.remove("valid");
-    }
-
-    checkFormValidity();
-  });
+  if (toggleButton && passwordInput) {
+    toggleButton.addEventListener("click", function () {
+      if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        this.classList.add("active");
+      } else {
+        passwordInput.type = "password";
+        this.classList.remove("active");
+      }
+    });
+  }
 
   function checkFormValidity() {
-    const isUsernameValid = usernameInput.value.trim().length >= 3;
-    const isPhoneValid = /^09\d{9}$/.test(
-      phoneInput.value.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d))
-    );
-    const isPasswordLengthValid = ruleLength.classList.contains("valid");
-    const isPasswordNumberValid = ruleNumber.classList.contains("valid");
-    const isPasswordSpecialValid = ruleSpecial.classList.contains("valid");
+    if (!usernameInput || !phoneInput || !passwordInput) return;
 
-    if (
-      isUsernameValid &&
-      isPhoneValid &&
-      isPasswordLengthValid &&
-      isPasswordNumberValid &&
-      isPasswordSpecialValid
-    ) {
-      submitBtn.disabled = false;
-    } else {
-      submitBtn.disabled = true;
+    const isUsernameValid = usernameInput.value.trim().length >= 3;
+
+    const rawPhone = phoneInput.value;
+    const enPhone = rawPhone.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+    const isPhoneValid = /^09\d{9}$/.test(enPhone);
+
+    const isPassLen = ruleLength
+      ? ruleLength.classList.contains("valid")
+      : passwordInput.value.length >= 8;
+    const isPassNum = ruleNumber
+      ? ruleNumber.classList.contains("valid")
+      : /\d/.test(passwordInput.value);
+    const isPassSpecial = ruleSpecial
+      ? ruleSpecial.classList.contains("valid")
+      : true;
+
+    if (submitBtn) {
+      if (
+        isUsernameValid &&
+        isPhoneValid &&
+        isPassLen &&
+        isPassNum &&
+        isPassSpecial
+      ) {
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = "1";
+        submitBtn.style.cursor = "pointer";
+      } else {
+        submitBtn.disabled = true;
+        submitBtn.style.opacity = "0.5";
+        submitBtn.style.cursor = "not-allowed";
+      }
     }
   }
 
-  usernameInput.addEventListener("input", checkFormValidity);
-  phoneInput.addEventListener("input", checkFormValidity);
+  if (usernameInput) usernameInput.addEventListener("input", checkFormValidity);
+
+  if (phoneInput) {
+    phoneInput.addEventListener("input", function () {
+      this.value = this.value.replace(/[^0-9۰-۹]/g, "");
+      checkFormValidity();
+    });
+  }
+
+  if (passwordInput) {
+    passwordInput.addEventListener("input", function () {
+      const val = this.value;
+      if (ruleLength)
+        val.length >= 8
+          ? ruleLength.classList.add("valid")
+          : ruleLength.classList.remove("valid");
+      if (ruleNumber)
+        /\d/.test(val)
+          ? ruleNumber.classList.add("valid")
+          : ruleNumber.classList.remove("valid");
+      if (ruleSpecial)
+        /[!@#$%^&*(),.?":{}|<>_+\-=\[\]]/.test(val)
+          ? ruleSpecial.classList.add("valid")
+          : ruleSpecial.classList.remove("valid");
+      checkFormValidity();
+    });
+  }
+
+  if (signupForm) {
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      if (submitBtn && submitBtn.disabled) return;
+
+      signupForm.classList.add("form-fade-out");
+
+      if (signupContent) {
+        signupContent.classList.add("success-state");
+      }
+
+      setTimeout(() => {
+        signupForm.style.display = "none";
+
+        if (successMessage) {
+          successMessage.style.display = "flex";
+
+          const iconBox = successMessage.querySelector(".success-icon-box");
+          if (iconBox) {
+            iconBox.style.animation = "none";
+            iconBox.offsetHeight;
+            iconBox.style.animation =
+              "popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards";
+          }
+        }
+      }, 400);
+    });
+  }
+
+  if (backToFormBtn) {
+    backToFormBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (signupContent) {
+        signupContent.classList.remove("success-state");
+      }
+
+      if (successMessage) successMessage.style.display = "none";
+
+      if (signupForm) {
+        signupForm.style.display = "block";
+        setTimeout(() => {
+          signupForm.classList.remove("form-fade-out");
+        }, 50);
+        signupForm.reset();
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (ruleLength) ruleLength.classList.remove("valid");
+      if (ruleNumber) ruleNumber.classList.remove("valid");
+      if (ruleSpecial) ruleSpecial.classList.remove("valid");
+    });
+  }
 });
