@@ -805,6 +805,7 @@ input[name="tab-group"] {
   display: flex;
   flex-direction: row-reverse;
   min-height: 500px;
+  overflow: visible !important;
 }
 .signup-brand {
   flex: 1;
@@ -858,6 +859,7 @@ input[name="tab-group"] {
 }
 .form-group {
   margin-bottom: 20px;
+  position: relative;
 }
 .form-label {
   display: block;
@@ -871,7 +873,7 @@ input[name="tab-group"] {
   border: 1px solid var(--stroke);
   border-radius: 8px;
   font-family: inherit;
-  background: #fcfcfc;
+  background: #ffffff;
   direction: rtl;
 }
 .form-input:focus {
@@ -879,6 +881,62 @@ input[name="tab-group"] {
   border-color: var(--light-green);
   background: var(--white);
 }
+
+.form-input:not(:placeholder-shown):not(:focus) {
+  background-color: #F9F9F9;
+}
+
+/* The Red Error Bubble */
+.error-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: #D44141;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+
+  z-index: 20;
+
+  pointer-events: none;
+}
+
+/* The Triangle Arrow pointing down */
+.error-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Bottom of tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #D44141 transparent transparent transparent;
+}
+
+/* Active State: When the error is shown */
+.form-group.has-error .error-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0); /* Move to final position */
+}
+
+/* Change input border color on error */
+.form-group.has-error .form-input {
+  border-color: #D44141;
+  background-color: #ffffff; /* Slight red tint background */
+}
+
+.form-group.has-error .form-label {
+  color: #D44141;
+}
+
 .form-actions {
   display: flex;
   gap: 8px;

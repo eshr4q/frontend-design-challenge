@@ -327,316 +327,306 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  /* =========================================
-     FORM VALIDATION & ANIMATION
+ /* =========================================
+     SELECTORS & VARIABLES
      ========================================= */
-
-  const signupContent = document.querySelector(".signup-content");
-  const signupForm = document.querySelector(".signup-form-container form");
-  const signupContainer = document.querySelector(".signup-form-container");
-
-  // Buttons
-  const submitBtn = document.getElementById("submitBtn");
-  const btnCancel = document.querySelector(".btn-cancel");
-  const backToFormBtn = document.getElementById("backToFormBtn");
-  const backFromErrorBtn = document.getElementById("backFromErrorBtn");
-
-  // Messages
-  const successMessage = document.getElementById("successMessage");
-  const errorMessage = document.getElementById("errorMessage");
-
-  // Inputs
-  const usernameInput = document.querySelector('input[type="text"]');
-  const phoneInput = document.querySelector('input[type="tel"]');
-  const passwordInput = document.querySelector('input[type="password"]');
-
-  // Rules
-  const ruleLength = document.getElementById("rule-length");
-  const ruleNumber = document.getElementById("rule-number");
-  const ruleSpecial = document.getElementById("rule-special");
-
-  // Toggle Password
-  const toggleButton = document.getElementById("togglePassword");
-  if (toggleButton && passwordInput) {
-    toggleButton.addEventListener("click", function () {
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        this.classList.add("active");
-      } else {
-        passwordInput.type = "password";
-        this.classList.remove("active");
-      }
-    });
-  }
-
-  // --- Check Form Validity ---
-  function checkFormValidity() {
-    if (!usernameInput || !phoneInput || !passwordInput) return;
-
-    const isUsernameValid = usernameInput.value.trim().length >= 3;
-
-    // Normalize Persian/English numbers for phone check
-    const rawPhone = phoneInput.value;
-    const enPhone = rawPhone.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-    const isPhoneValid = /^09\d{9}$/.test(enPhone);
-
-    const isPassLen = passwordInput.value.length >= 8;
-    const isPassNum = /\d/.test(passwordInput.value);
-    const isPassSpecial = /[!@#$%^&*(),.?":{}|<>_+\-=\[\]]/.test(
-      passwordInput.value
-    );
-
-    // Update Rule UI
-    if (ruleLength)
-      isPassLen
-        ? ruleLength.classList.add("valid")
-        : ruleLength.classList.remove("valid");
-    if (ruleNumber)
-      isPassNum
-        ? ruleNumber.classList.add("valid")
-        : ruleNumber.classList.remove("valid");
-    if (ruleSpecial)
-      isPassSpecial
-        ? ruleSpecial.classList.add("valid")
-        : ruleSpecial.classList.remove("valid");
-
-    // Enable/Disable Button
-    if (submitBtn) {
-      if (
-        isUsernameValid &&
-        isPhoneValid &&
-        isPassLen &&
-        isPassNum &&
-        isPassSpecial
-      ) {
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = "1";
-        submitBtn.style.cursor = "pointer";
-      } else {
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = "0.6";
-        submitBtn.style.cursor = "not-allowed";
-      }
-    }
-  }
-
-  // Attach Listeners
-  if (usernameInput) usernameInput.addEventListener("input", checkFormValidity);
-  if (phoneInput) {
-    phoneInput.addEventListener("input", function () {
-      this.value = this.value.replace(/[^0-9۰-۹]/g, ""); // Allow only digits
-      checkFormValidity();
-    });
-  }
-  if (passwordInput) passwordInput.addEventListener("input", checkFormValidity);
-
-
-  /* =========================================
-   ANIMATION LOGIC (Flying Smiley & Reset)
-   ========================================= */
-
-  // Store the original position of the badge to know where to return to
-  let savedBadgeRect = null;
-
-  function runSmileyAnimation(type) {
-    const isSuccess = type === "success";
-    const originalSmileyBadge = document.querySelector(".smiley-badge");
-    if (!originalSmileyBadge) return;
-
-    const originalImg = originalSmileyBadge.querySelector("img");
-
-    // Measure & Save Start Position
-    const startRect = originalSmileyBadge.getBoundingClientRect();
-    savedBadgeRect = startRect; // <--- SAVED FOR RETURN FLIGHT
-
-    // Define Animation Sizes
-    const startSize = 70;
-    const finalSize = 82;
-
-    // Calculate center offset for the start position
-    const offset = (startSize - startRect.width) / 2;
-    const startLeft = startRect.left - offset;
-    const startTop = startRect.top - offset;
-
-    // Create the Flyer Clone
-    const flyer = document.createElement("div");
-    flyer.classList.add("flyer-clone");
-
-    // Set initial state (at Sidebar)
-    flyer.style.width = startSize + "px";
-    flyer.style.height = startSize + "px";
-    flyer.style.left = startLeft + "px";
-    flyer.style.top = startTop + "px";
-    flyer.style.backgroundColor = isSuccess ? "var(--light-green)" : "#FFD4D4";
-
-    const flyerImg = document.createElement("img");
-    flyerImg.src = isSuccess ? originalImg.src : "assets/icons/SmileySad.svg";
-    flyer.appendChild(flyerImg);
-    document.body.appendChild(flyer);
-
-    // Hide Original Badge
-    originalSmileyBadge.style.opacity = "0";
-
-    // Trigger Layout Shift
-    if (isSuccess) {
-      signupContent.classList.add("success-state");
-    } else {
-      signupContent.classList.add("error-state");
-    }
-    signupForm.classList.add("form-fade-out");
-
-    // Calculate Destination (Center of Wrapper)
-    const mainWrapperRect = signupContent.getBoundingClientRect();
-    const destX =
-      mainWrapperRect.left + mainWrapperRect.width / 2 - finalSize / 2;
-    const destY =
-      mainWrapperRect.top + mainWrapperRect.height / 2 - finalSize / 2 - 105;
-
-    // Animate to Center
-    requestAnimationFrame(() => {
-      flyer.style.width = finalSize + "px";
-      flyer.style.height = finalSize + "px";
-      flyer.style.left = destX + "px";
-      flyer.style.top = destY + "px";
-    });
-
-    // Cleanup & Reveal Message
-    setTimeout(() => {
-      signupForm.style.display = "none";
-      const targetMessage = isSuccess ? successMessage : errorMessage;
-      targetMessage.style.display = "flex";
-
-      // Reveal static icon
-      const finalIconBox = targetMessage.querySelector(".success-icon-box");
-      if (finalIconBox) {
-        finalIconBox.classList.add("revealed");
-      }
-
-      flyer.remove();
-    }, 600);
-  }
-
-  // Fly Back Animation
-  function resetFormUI() {
-    // Identify which message is currently active
-    const activeMsg =
-      successMessage.style.display === "flex" ? successMessage : null;
-
-    // Safety check: if no message is open, just reset
-    if (!activeMsg || !savedBadgeRect) {
-      hardResetUI();
-      return;
-    }
-
-    const iconBox = activeMsg.querySelector(".success-icon-box");
-    const iconImg =
-      activeMsg.querySelector(".success-smiley") ||
-      activeMsg.querySelector("img"); // Handle both SVG and Img cases
-
-    // Measure Start Position (Center of Screen)
-    const startRect = iconBox.getBoundingClientRect();
-
-    // Create "Return Flyer"
-    const flyer = document.createElement("div");
-    flyer.classList.add("flyer-clone");
-
-    // Set Start State (at Center)
-    flyer.style.width = "82px"; // Matched finalSize
-    flyer.style.height = "82px";
-    flyer.style.left = startRect.left + "px";
-    flyer.style.top = startRect.top + "px";
-    // Check if it was success or error for background color
-    flyer.style.backgroundColor =
-      activeMsg === successMessage ? "var(--light-green)" : "#FFD4D4";
-
-    const flyerImg = document.createElement("img");
-    // Use the image that is currently visible in the message
-    flyerImg.src = iconImg.src || iconImg.getAttribute("src");
-    flyer.appendChild(flyerImg);
-    document.body.appendChild(flyer);
-
-    // Hide Static Icon immediately
-    iconBox.classList.remove("revealed");
-    iconBox.style.opacity = "0";
-
-    // Trigger Layout Reset (Sidebar slides back in)
-    signupContent.classList.remove("success-state", "error-state");
-    activeMsg.style.display = "none";
-
-    signupForm.style.display = "block";
-    // Small delay to allow 'display: block' to apply before removing opacity fade
-    setTimeout(() => {
-      signupForm.classList.remove("form-fade-out");
-    }, 50);
-
-    // Calculate Destination (Original Badge Position)
-    const targetSize = 70;
-    const targetX =
-      savedBadgeRect.left + savedBadgeRect.width / 2 - targetSize / 2;
-    const targetY =
-      savedBadgeRect.top + savedBadgeRect.height / 2 - targetSize / 2;
-
-    // Animate Back to Sidebar
-    requestAnimationFrame(() => {
-      flyer.style.width = targetSize + "px";
-      flyer.style.height = targetSize + "px";
-      flyer.style.left = targetX + "px";
-      flyer.style.top = targetY + "px";
-    });
-
-    // Cleanup after landing
-    setTimeout(() => {
-      flyer.remove();
-      const originalBadge = document.querySelector(".smiley-badge");
-      if (originalBadge) originalBadge.style.opacity = "1";
-
-      // Reset Form Data
-      signupForm.reset();
-      checkFormValidity();
-
-      // Clean up any lingering styles on icon boxes
-      document.querySelectorAll(".success-icon-box").forEach((box) => {
-        box.classList.remove("revealed");
-        box.style.opacity = "";
-        box.style.transform = "";
-      });
-    }, 600); // Matches CSS transition time
-  }
-
-  // Fallback just in case
-  function hardResetUI() {
-    signupContent.classList.remove("success-state", "error-state");
-    signupForm.style.display = "block";
-    signupForm.classList.remove("form-fade-out");
-    successMessage.style.display = "none";
-    errorMessage.style.display = "none";
-    const originalBadge = document.querySelector(".smiley-badge");
-    if (originalBadge) originalBadge.style.opacity = "1";
-    signupForm.reset();
-    checkFormValidity();
-  }
-
-  // ------------------------------------------------
-  //  EVENT HANDLERS
-  // ------------------------------------------------
-
-  if (signupForm) {
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-      if (submitBtn && !submitBtn.disabled) {
-        runSmileyAnimation("success");
-      }
-    });
-  }
-
-  if (btnCancel) {
-    btnCancel.addEventListener("click", function (e) {
-      e.preventDefault();
-      runSmileyAnimation("error");
-    });
-  }
-
-  // Back buttons now trigger the animated reset
-  if (backToFormBtn) backToFormBtn.addEventListener("click", resetFormUI);
-  if (backFromErrorBtn) backFromErrorBtn.addEventListener("click", resetFormUI);
-});
+     const signupContent = document.querySelector(".signup-content");
+     const signupForm = document.querySelector(".signup-form-container form");
+     
+     // Buttons
+     const submitBtn = document.getElementById("submitBtn");
+     const btnCancel = document.querySelector(".btn-cancel");
+     const backToFormBtn = document.getElementById("backToFormBtn");
+     const backFromErrorBtn = document.getElementById("backFromErrorBtn");
+   
+     // Messages
+     const successMessage = document.getElementById("successMessage");
+     const errorMessage = document.getElementById("errorMessage");
+   
+     // Inputs
+     // FIX: We select by type since ID is missing in HTML
+     const usernameInput = document.querySelector('input[type="text"]'); 
+     const phoneInput = document.querySelector('input[type="tel"]');
+     const passwordInput = document.querySelector('input[type="password"]');
+   
+     // Rules
+     const ruleLength = document.getElementById("rule-length");
+     const ruleNumber = document.getElementById("rule-number");
+     const ruleSpecial = document.getElementById("rule-special");
+   
+     /* =========================================
+        TOGGLE PASSWORD VISIBILITY
+        ========================================= */
+     const toggleButton = document.getElementById("togglePassword");
+     if (toggleButton && passwordInput) {
+       toggleButton.addEventListener("click", function () {
+         if (passwordInput.type === "password") {
+           passwordInput.type = "text";
+           this.classList.add("active");
+         } else {
+           passwordInput.type = "password";
+           this.classList.remove("active");
+         }
+       });
+     }
+   
+     /* =========================================
+        FORM VALIDATION LOGIC
+        ========================================= */
+     function checkFormValidity() {
+       if (!usernameInput || !phoneInput || !passwordInput) return;
+   
+       // 1. Username Validation
+       const usernameVal = usernameInput.value;
+       const hasUsernameNumbers = /[0-9۰-۹]/.test(usernameVal);
+       // Valid only if length is good AND no numbers
+       const isUsernameValid = usernameVal.trim().length >= 3 && !hasUsernameNumbers;
+   
+       // 2. Phone Validation
+       const rawPhone = phoneInput.value;
+       const enPhone = rawPhone.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+       const isPhoneValid = /^09\d{9}$/.test(enPhone);
+   
+       // 3. Password Validation
+       const isPassLen = passwordInput.value.length >= 8;
+       const isPassNum = /\d/.test(passwordInput.value);
+       const isPassSpecial = /[!@#$%^&*(),.?":{}|<>_+\-=\[\]]/.test(passwordInput.value);
+   
+       // Update Password Rule UI
+       if (ruleLength) isPassLen ? ruleLength.classList.add("valid") : ruleLength.classList.remove("valid");
+       if (ruleNumber) isPassNum ? ruleNumber.classList.add("valid") : ruleNumber.classList.remove("valid");
+       if (ruleSpecial) isPassSpecial ? ruleSpecial.classList.add("valid") : ruleSpecial.classList.remove("valid");
+   
+       // Enable/Disable Submit Button
+       if (submitBtn) {
+         if (isUsernameValid && isPhoneValid && isPassLen && isPassNum && isPassSpecial) {
+           submitBtn.disabled = false;
+           submitBtn.style.opacity = "1";
+           submitBtn.style.cursor = "pointer";
+         } else {
+           submitBtn.disabled = true;
+           submitBtn.style.opacity = "0.6";
+           submitBtn.style.cursor = "not-allowed";
+         }
+       }
+     }
+   
+     /* =========================================
+        EVENT LISTENERS (INPUTS)
+        ========================================= */
+   
+     // --- Username Listener (FIXED) ---
+     if (usernameInput) {
+       usernameInput.addEventListener("input", function (e) {
+         const value = e.target.value;
+         const hasNumbers = /[0-9۰-۹]/.test(value);
+   
+         // FIX: Find the parent .form-group dynamically
+         const parentGroup = usernameInput.closest('.form-group');
+   
+         if (parentGroup) {
+           if (hasNumbers) {
+             parentGroup.classList.add("has-error");
+           } else {
+             parentGroup.classList.remove("has-error");
+           }
+         }
+   
+         checkFormValidity();
+       });
+     }
+   
+     // --- Phone Listener ---
+     if (phoneInput) {
+       phoneInput.addEventListener("input", function () {
+         this.value = this.value.replace(/[^0-9۰-۹]/g, ""); // Allow only digits
+         checkFormValidity();
+       });
+     }
+   
+     // --- Password Listener ---
+     if (passwordInput) {
+       passwordInput.addEventListener("input", checkFormValidity);
+     }
+   
+     /* =========================================
+        ANIMATION LOGIC (Flying Smiley & Reset)
+        ========================================= */
+   
+     let savedBadgeRect = null;
+   
+     function runSmileyAnimation(type) {
+       const isSuccess = type === "success";
+       const originalSmileyBadge = document.querySelector(".smiley-badge");
+       if (!originalSmileyBadge) return;
+   
+       const originalImg = originalSmileyBadge.querySelector("img");
+       const startRect = originalSmileyBadge.getBoundingClientRect();
+       savedBadgeRect = startRect;
+   
+       const startSize = 70;
+       const finalSize = 82;
+   
+       const offset = (startSize - startRect.width) / 2;
+       const startLeft = startRect.left - offset;
+       const startTop = startRect.top - offset;
+   
+       const flyer = document.createElement("div");
+       flyer.classList.add("flyer-clone");
+       flyer.style.width = startSize + "px";
+       flyer.style.height = startSize + "px";
+       flyer.style.left = startLeft + "px";
+       flyer.style.top = startTop + "px";
+       flyer.style.backgroundColor = isSuccess ? "var(--light-green)" : "#FFD4D4";
+   
+       const flyerImg = document.createElement("img");
+       flyerImg.src = isSuccess ? originalImg.src : "assets/icons/SmileySad.svg";
+       flyer.appendChild(flyerImg);
+       document.body.appendChild(flyer);
+   
+       originalSmileyBadge.style.opacity = "0";
+   
+       if (isSuccess) {
+         signupContent.classList.add("success-state");
+       } else {
+         signupContent.classList.add("error-state");
+       }
+       signupForm.classList.add("form-fade-out");
+   
+       const mainWrapperRect = signupContent.getBoundingClientRect();
+       const destX = mainWrapperRect.left + mainWrapperRect.width / 2 - finalSize / 2;
+       const destY = mainWrapperRect.top + mainWrapperRect.height / 2 - finalSize / 2 - 105;
+   
+       requestAnimationFrame(() => {
+         flyer.style.width = finalSize + "px";
+         flyer.style.height = finalSize + "px";
+         flyer.style.left = destX + "px";
+         flyer.style.top = destY + "px";
+       });
+   
+       setTimeout(() => {
+         signupForm.style.display = "none";
+         const targetMessage = isSuccess ? successMessage : errorMessage;
+         targetMessage.style.display = "flex";
+   
+         const finalIconBox = targetMessage.querySelector(".success-icon-box");
+         if (finalIconBox) {
+           finalIconBox.classList.add("revealed");
+         }
+   
+         flyer.remove();
+       }, 600);
+     }
+   
+     // --- Fly Back Animation ---
+     function resetFormUI() {
+       const activeMsg = successMessage.style.display === "flex" ? successMessage : null;
+   
+       if (!activeMsg || !savedBadgeRect) {
+         hardResetUI();
+         return;
+       }
+   
+       const iconBox = activeMsg.querySelector(".success-icon-box");
+       const iconImg = activeMsg.querySelector(".success-smiley") || activeMsg.querySelector("img");
+       const startRect = iconBox.getBoundingClientRect();
+   
+       const flyer = document.createElement("div");
+       flyer.classList.add("flyer-clone");
+       flyer.style.width = "82px";
+       flyer.style.height = "82px";
+       flyer.style.left = startRect.left + "px";
+       flyer.style.top = startRect.top + "px";
+       flyer.style.backgroundColor = activeMsg === successMessage ? "var(--light-green)" : "#FFD4D4";
+   
+       const flyerImg = document.createElement("img");
+       flyerImg.src = iconImg.src || iconImg.getAttribute("src");
+       flyer.appendChild(flyerImg);
+       document.body.appendChild(flyer);
+   
+       iconBox.classList.remove("revealed");
+       iconBox.style.opacity = "0";
+   
+       signupContent.classList.remove("success-state", "error-state");
+       activeMsg.style.display = "none";
+   
+       signupForm.style.display = "block";
+       setTimeout(() => {
+         signupForm.classList.remove("form-fade-out");
+       }, 50);
+   
+       const targetSize = 70;
+       const targetX = savedBadgeRect.left + savedBadgeRect.width / 2 - targetSize / 2;
+       const targetY = savedBadgeRect.top + savedBadgeRect.height / 2 - targetSize / 2;
+   
+       requestAnimationFrame(() => {
+         flyer.style.width = targetSize + "px";
+         flyer.style.height = targetSize + "px";
+         flyer.style.left = targetX + "px";
+         flyer.style.top = targetY + "px";
+       });
+   
+       setTimeout(() => {
+         flyer.remove();
+         const originalBadge = document.querySelector(".smiley-badge");
+         if (originalBadge) originalBadge.style.opacity = "1";
+   
+         signupForm.reset();
+   
+         // Fix: Remove error class from username if it exists
+         if (usernameInput) {
+           const parentGroup = usernameInput.closest('.form-group');
+           if (parentGroup) parentGroup.classList.remove("has-error");
+         }
+         
+         checkFormValidity();
+   
+         document.querySelectorAll(".success-icon-box").forEach((box) => {
+           box.classList.remove("revealed");
+           box.style.opacity = "";
+           box.style.transform = "";
+         });
+       }, 600);
+     }
+   
+     function hardResetUI() {
+       signupContent.classList.remove("success-state", "error-state");
+       signupForm.style.display = "block";
+       signupForm.classList.remove("form-fade-out");
+       successMessage.style.display = "none";
+       errorMessage.style.display = "none";
+       
+       // Fix: Remove error class from username manually
+       if (usernameInput) {
+           const parentGroup = usernameInput.closest('.form-group');
+           if (parentGroup) parentGroup.classList.remove("has-error");
+       }
+   
+       const originalBadge = document.querySelector(".smiley-badge");
+       if (originalBadge) originalBadge.style.opacity = "1";
+       signupForm.reset();
+       checkFormValidity();
+     }
+   
+     /* =========================================
+        BUTTON EVENTS
+        ========================================= */
+     if (signupForm) {
+       signupForm.addEventListener("submit", function (e) {
+         e.preventDefault();
+         if (submitBtn && !submitBtn.disabled) {
+           runSmileyAnimation("success");
+         }
+       });
+     }
+   
+     if (btnCancel) {
+       btnCancel.addEventListener("click", function (e) {
+         e.preventDefault();
+         runSmileyAnimation("error");
+       });
+     }
+   
+     if (backToFormBtn) backToFormBtn.addEventListener("click", resetFormUI);
+     if (backFromErrorBtn) backFromErrorBtn.addEventListener("click", resetFormUI);
+   });
