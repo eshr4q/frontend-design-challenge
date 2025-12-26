@@ -1084,12 +1084,6 @@ input[name="tab-group"] {
   opacity: 0.6;
 }
 
-/* .btn-submit:not(:disabled):hover {
-  background-color: #1a5f3a;
-  transform: translateY(-2px);
-  transition: all 0.3s ease;
-} */
-
 /* =========================================
    ANIMATION: Animated Text in Signup Form
    ========================================= */
@@ -1299,7 +1293,6 @@ input[name="tab-group"] {
   transition: all 0.4s ease;
   pointer-events: none;
 }
-
 /* =========================================
    RANGE SLIDER (Desktop Default)
    ========================================= */
@@ -1317,7 +1310,7 @@ input[name="tab-group"] {
   justify-content: center;
   gap: 10px;
   color: var(--deep-green);
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 23px;
 }
 .large-number {
@@ -1348,6 +1341,11 @@ input[name="tab-group"] {
 #rangeInput,
 .slider-labels {
   direction: rtl;
+}
+
+#displayValue {
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 #rangeInput {
@@ -1403,54 +1401,53 @@ input[name="tab-group"] {
   cursor: pointer;
 }
 
-/* --- Labels Styling (Desktop) --- */
+/* -------- Labels -------- */
 .slider-labels {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 14px;
   font-weight: 800;
-  color: var(--deep-green);
   font-size: 12px;
+  color: var(--deep-green);
   user-select: none;
-  position: static;
-  padding: 0 70px;
+  pointer-events: none;
 }
 
+/* Default label */
 .slider-labels span {
-  /* width: 20px;
-  text-align: center; */
   position: relative;
 }
 
+/* Tick for middle values */
 .slider-labels span::after {
   content: "";
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
   height: 6px;
   background-color: var(--deep-green);
-  opacity: 0.2;
+  opacity: 0.35;
   border-radius: 2px;
 }
 
-.slider-labels span:first-child {
-  position: absolute;
-  right: 15px;
-  top: 20px;
-  margin: 0;
-}
-.slider-labels span:first-child::after {
-  display: none;
-}
-
+/* -------- Edge labels: 10 & 100 -------- */
+.slider-labels span:first-child,
 .slider-labels span:last-child {
-  position: absolute;
-  left: 15px;
-  top: 20px;
-  margin: 0;
+  position: relative;
+  top: -22px;
+  font-weight: 800;
 }
+.slider-labels span:last-child {
+  right: 26px;
+}
+.slider-labels span:first-child {
+  left: +26px;
+}
+/* Remove ticks on edges */
+.slider-labels span:first-child::after,
 .slider-labels span:last-child::after {
   display: none;
 }
@@ -1637,7 +1634,7 @@ input[name="tab-group"] {
   z-index: 1000 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .site-header {
     position: relative;
     z-index: 1001;
@@ -1805,152 +1802,209 @@ input[name="tab-group"] {
     height: 8px;
   }
 
+  .rs-header-section {
+    border-radius: 8px;
+  }
   /* range slider*/
   .rs-body-section {
+    border-radius: 8px;
     display: flex;
     flex-direction: row-reverse;
-    justify-content: center;
     align-items: center;
-    gap: 53px;
-    padding: 40px 20px !important;
-    min-height: 500px;
+    padding: 24px;
+    gap: 32px;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .value-display {
-    flex-direction: column;
-    text-align: right;
-    width: auto;
-    gap: 8px;
-    margin-bottom: 0;
-  }
-  .value-display span:nth-child(1) {
-    order: 1;
-    font-size: 1.2rem;
-  }
-  .large-number {
-    order: 2;
-    font-size: 5rem;
-    margin: 5px 0;
-    line-height: 1;
-    text-shadow: 0 10px 20px rgba(9, 63, 32, 0.1);
-  }
-  .value-display span:nth-child(3) {
-    order: 3;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    font-size: 1.1rem;
-  }
-  .info-icon {
-    order: 4;
-    display: inline-flex;
+    justify-content: center;
+    width: 60%;
+    height: 320px;
   }
 
-  .slider-wrapper {
-    width: 100px;
-    height: 480px;
-    padding: 0;
+  .value-display > span:first-of-type {
+    order: 1 !important;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: -15px;
+    z-index: 2;
+  }
+
+  .large-number {
+    order: 2 !important;
+    font-size: 8.5rem !important;
+    font-weight: 900;
+    font: bold;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--deep-green);
+    text-shadow: 0 0 40px rgba(76, 175, 80, 0.3),
+      0 0 80px rgba(76, 175, 80, 0.2);
+  }
+
+  .selection-row {
+    order: 3 !important;
     display: flex;
+    align-items: center;
     justify-content: center;
-    border-radius: 16px;
-    position: relative;
+    gap: 8px;
+    margin-top: -5px;
+  }
+
+  .selection-row span:not(.info-icon) {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #063d1f;
+  }
+
+  .info-icon {
+    background-color: #063d1f;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
   }
 
   #rangeInput {
-    position: absolute;
-    width: 440px;
-    height: 4px;
-    top: 50%;
-    left: 50%;
-    margin: 0;
-    background: transparent;
-    transform: translate(-50%, -50%) rotate(90deg);
+    accent-color: var(--deep-green);
+
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    width: 16px;
+    height: 384px;
+    margin: 0 auto;
+    background: var(--deep-green);
+    border-radius: 10px;
   }
+
   #rangeInput::-webkit-slider-runnable-track {
-    background: white;
-    height: 4px;
-    border-radius: 2px;
+    width: 4px;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(
+      to top,
+      var(--deep-green) 0%,
+      var(--deep-green) var(--progress),
+      var(--white) var(--progress),
+      var(--white) 100%
+    );
   }
+
   #rangeInput::-moz-range-track {
-    background: white;
-    height: 4px;
-    border-radius: 2px;
+    width: 4px;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(
+      to top,
+      var(--deep-green) 100%,
+      var(--deep-green) var(--progress),
+      var(--white) var(--progress),
+      var(--white) 100%
+    );
   }
   #rangeInput::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
-    margin-top: -10px;
-    box-shadow: 0 0 0 4px rgba(223, 252, 161, 0.6);
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--deep-green);
+
+    border: none;
+    margin-right: -6px;
+
+    position: relative;
+    z-index: 2;
+  }
+
+  #rangeInput::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+
+    background: var(--deep-green);
+    border: none;
   }
 
   .slider-labels {
-    /* position: absolute;  */
-    inset: 0px 0;
+    position: absolute;
+    inset: 0;
+    padding: 20px 0;
+    display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
-    margin: 0;
-    padding: 0;
-    z-index: 1;
+    pointer-events: none;
+    z-index: 5;
+    font-weight: 700;
   }
 
   .slider-labels span {
-    width: 100%;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
     position: relative;
+    height: 0;
+    line-height: 0;
+    font-size: 0.85rem;
+    color: var(--deep-green);
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
+
+  .slider-labels span:nth-child(even):not(:nth-child(10)) {
+    right: 14px;
+    text-align: right;
+  }
+
+  .slider-labels span:nth-child(odd):not(:nth-child(1)) {
+    left: 14px;
+    text-align: left;
+  }
+
+  .slider-labels span::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background: var(--deep-green);
+    transform: translateY(-10%);
+    opacity: 0.35;
+    border-radius: 2px;
+  }
+
+  .slider-labels span:nth-child(even):not(:nth-child(10))::after {
+    right: 10%;
+    margin-right: 6px;
+    left: auto;
+  }
+
+  .slider-labels span:nth-child(odd):not(:nth-child(1))::after {
+    left: 10%;
+    margin-left: 6px;
+    right: auto;
+  }
+
   .slider-labels span:first-child,
   .slider-labels span:last-child {
     position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin: 0;
-    justify-content: center;
-    padding: 0;
-  }
-  .slider-labels span::after {
-    content: "";
-    display: block;
-    position: absolute;
-    height: 2px;
-    width: 10px;
-    background-color: var(--deep-green);
-    opacity: 0.3;
-    top: 50%;
-    z-index: -1;
-    transform: translateY(50%);
-    border-radius: 0;
-  }
-  .slider-labels span:nth-child(odd) {
-    justify-content: flex-start;
-    padding-left: 20px;
-  }
-  .slider-labels span:nth-child(odd)::after {
-    left: 45px;
-    right: auto;
-  }
-  .slider-labels span:nth-child(even) {
-    justify-content: flex-end;
-    padding-right: 20px;
-  }
-  .slider-labels span:nth-child(even)::after {
-    right: 45px;
-    left: auto;
-  }
-  .slider-labels span:first-child {
-    justify-content: center;
-    padding: 0;
+    font-weight: 800;
+    transform: translateX(-50%);
   }
   .slider-labels span:last-child {
-    justify-content: center;
-    padding: 0;
+    top: -17px;
+    right: -6px;
   }
-  .slider-labels span:first-child::after,
-  .slider-labels span:last-child::after {
-    display: none;
+  .slider-labels span:first-child {
+    top: 15px;
+    left: 6px;
   }
 
   .tooltip-box {

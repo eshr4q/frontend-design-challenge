@@ -59,55 +59,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  
   /* ==============
   --- RANGE SLIDER LOGIC ---
-  =============*/
+  ============== */
+
   const rangeInput = document.getElementById("rangeInput");
   const displayValue = document.getElementById("displayValue");
   const labelContainer = document.getElementById("labelContainer");
 
-  // Convert English to Persian
+  const MIN = 10;
+  const MAX = 100;
+  const STEP = 10;
+  const STEPS_COUNT = (MAX - MIN) / STEP + 1;
+
+// English → Persian digits
   function toPersianDigits(num) {
-    const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-    return num.toString().replace(/\d/g, (x) => farsiDigits[x]);
+    const farsiDigits = ["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];
+    return num.toString().replace(/\d/g, d => farsiDigits[d]);
   }
 
+// Build labels (10 → 100)
   function setupLabels() {
     if (!labelContainer) return;
     labelContainer.innerHTML = "";
-    for (let i = 10; i <= 100; i += 10) {
+
+    for (let i = MIN; i <= MAX; i += STEP) {
       const span = document.createElement("span");
       span.textContent = toPersianDigits(i);
       labelContainer.appendChild(span);
     }
   }
 
-  // Update slider gradient and value
+// SNAP-based calculation
   function updateSlider() {
     if (!rangeInput) return;
 
-    const val = parseInt(rangeInput.value);
-    const min = parseInt(rangeInput.min);
-    const max = parseInt(rangeInput.max);
+    const value = Number(rangeInput.value);
+    const index = (value - MIN) / STEP;
+    const percentage = (index / (STEPS_COUNT - 1)) * 100;
 
-    // Calculate percentage for gradient
-    const percentage = ((val - min) / (max - min)) * 100;
-
-    // Apply to CSS Variable
     rangeInput.style.setProperty("--progress", `${percentage}%`);
 
-    // Update Text
     if (displayValue) {
-      displayValue.textContent = toPersianDigits(val);
+      displayValue.textContent = toPersianDigits(value);
     }
   }
 
-  // Initialize
+
   setupLabels();
+
   if (rangeInput) {
     rangeInput.addEventListener("input", updateSlider);
-    updateSlider(); // Run once on load
+    updateSlider();
   }
+
 
   /*=============================================
 --- DYNAMIC TABS GENERATOR ------------------------------------------------
