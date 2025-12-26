@@ -1064,11 +1064,9 @@ input[name="tab-group"] {
   transition: all 0.6s ease;
 }
 
-
 .success-icon-box.error-theme {
-  background-color: #FFD4D4;
+  background-color: #ffd4d4;
 }
-
 
 @keyframes flip-words {
   0% {
@@ -1091,6 +1089,30 @@ input[name="tab-group"] {
     transform: translateY(0);
   }
 }
+/* =========================================
+   FLYING SMILEY ANIMATION STYLES
+   ========================================= */
+
+/* The flying clone container */
+.flyer-clone {
+  position: fixed;
+  z-index: 9999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.34, 1.76, 0.84, 1);
+  pointer-events: none;
+
+  transform-origin: center center;
+}
+
+.flyer-clone img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  transition: all 0.6s ease;
+}
 
 /* =========================================
    SUCCESS MESSAGE ANIMATION
@@ -1108,16 +1130,23 @@ input[name="tab-group"] {
 }
 
 .success-icon-box {
-  width: 100px;
-  height: 100px;
+  width: 82px;
+  height: 82px;
   background-color: var(--light-green);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-  transform: scale(0);
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* Class added by JS after flyer lands */
+.success-icon-box.revealed {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .success-smiley {
@@ -1165,21 +1194,6 @@ input[name="tab-group"] {
 .btn-back-outline:hover {
   background-color: var(--light-green);
   border-color: var(--light-green);
-}
-
-@keyframes popIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
 }
 
 @keyframes fadeInUp {
