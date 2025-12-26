@@ -1,27 +1,27 @@
 /* =========================================
    FONT – Estedad FD (Regular Only)
    ========================================= */
-   @font-face {
-    font-family: "Estedad FD";
-    src: url("../assets/fonts/Estedad-Regular.woff2") format("woff2");
-    font-weight: 400;
-    font-style: normal;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: "Estedad FD";
-    src: url("../assets/fonts/Estedad-Bold.woff2") format("woff2");
-    font-weight: 700;
-    font-display: swap;
-  }
-  
-  @font-face {
-    font-family: "Estedad FD";
-    src: url("../assets/fonts/Estedad-ExtraBold.woff2") format("woff2");
-    font-weight: 800;
-    font-display: swap;
-  }
+@font-face {
+  font-family: "Estedad FD";
+  src: url("../assets/fonts/Estedad-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Estedad FD";
+  src: url("../assets/fonts/Estedad-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Estedad FD";
+  src: url("../assets/fonts/Estedad-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
 
 :root {
   /* --- COLOR PALETTE --- */
@@ -833,8 +833,8 @@ input[name="tab-group"] {
 }
 
 .svg-group {
- margin-bottom: 20px;
- margin-left: -5px;
+  margin-bottom: 20px;
+  margin-left: -5px;
 }
 
 .smiley-badge {
@@ -883,7 +883,7 @@ input[name="tab-group"] {
 }
 
 .form-input:not(:placeholder-shown):not(:focus) {
-  background-color: #F9F9F9;
+  background-color: #f9f9f9;
 }
 
 /* The Red Error Bubble */
@@ -892,7 +892,7 @@ input[name="tab-group"] {
   bottom: 100%;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
-  background-color: #D44141;
+  background-color: #d44141;
   color: #fff;
   padding: 8px 16px;
   border-radius: 8px;
@@ -917,7 +917,7 @@ input[name="tab-group"] {
   transform: translateX(-50%);
   border-width: 6px;
   border-style: solid;
-  border-color: #D44141 transparent transparent transparent;
+  border-color: #d44141 transparent transparent transparent;
 }
 
 /* Active State: When the error is shown */
@@ -929,12 +929,12 @@ input[name="tab-group"] {
 
 /* Change input border color on error */
 .form-group.has-error .form-input {
-  border-color: #D44141;
+  border-color: #d44141;
   background-color: #ffffff; /* Slight red tint background */
 }
 
 .form-group.has-error .form-label {
-  color: #D44141;
+  color: #d44141;
 }
 
 .form-actions {
@@ -1243,7 +1243,7 @@ input[name="tab-group"] {
 }
 
 .failed-title {
-  color: #3F0909;
+  color: #3f0909;
   font-weight: 700;
   font-size: 1.2rem;
   margin-bottom: 10px;
@@ -1272,7 +1272,7 @@ input[name="tab-group"] {
 .btn-back-outline-f {
   background: transparent;
   border: 1px solid var(--stroke);
-  color: #3F0909;
+  color: #3f0909;
   padding: 2px 20px;
   border-radius: 122px;
   font-weight: bold;
@@ -1281,7 +1281,6 @@ input[name="tab-group"] {
   transition: all 0.3s;
   animation-delay: 0.8s;
 }
-
 
 @keyframes fadeInUp {
   from {
@@ -1513,6 +1512,18 @@ input[name="tab-group"] {
     border-radius: 0 0 24px 24px;
     padding: 50px 24px 40px 24px;
     flex: none;
+  }
+
+  .signup-content.success-state .signup-brand,
+  .signup-content.error-state .signup-brand {
+    height: 0 !important;
+    min-height: 0 !important;
+    flex: 0 0 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.6s ease;
   }
 
   .hero-title {

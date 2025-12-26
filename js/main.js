@@ -328,7 +328,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
  /* =========================================
-     SELECTORS & VARIABLES
+      Form - SELECTORS & VARIABLES
      ========================================= */
      const signupContent = document.querySelector(".signup-content");
      const signupForm = document.querySelector(".signup-form-container form");
