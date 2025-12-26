@@ -1,20 +1,27 @@
 /* =========================================
-   FONTS & VARIABLES
+   FONT – Estedad FD (Regular Only)
    ========================================= */
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("../assets/fonts/Vazirmatn-Regular.woff2") format("woff2");
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "Vazirmatn";
-  src: url("../assets/fonts/Vazirmatn-Bold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
+   @font-face {
+    font-family: "Estedad FD";
+    src: url("../assets/fonts/Estedad-Regular.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Estedad FD";
+    src: url("../assets/fonts/Estedad-Bold.woff2") format("woff2");
+    font-weight: 700;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: "Estedad FD";
+    src: url("../assets/fonts/Estedad-ExtraBold.woff2") format("woff2");
+    font-weight: 800;
+    font-display: swap;
+  }
 
 :root {
   /* --- COLOR PALETTE --- */
@@ -24,8 +31,7 @@
   --stroke: #ededed;
   --light-color: #f2f2f0;
   --white: #ffffff;
-
-  --font-main: "Vazirmatn", sans-serif;
+  --font-main: "Estedad FD", sans-serif;
 }
 
 /* =========================================
@@ -69,9 +75,10 @@ a {
 /* Responsive Padding */
 @media (max-width: 1200px) {
   .site-container {
-    padding: 0;
+    padding: 0 244px;
   }
 }
+
 @media (max-width: 768px) {
   .site-container {
     padding: 0;
@@ -818,10 +825,15 @@ input[name="tab-group"] {
 }
 .highlight-text {
   background-color: var(--white);
-  padding: 0 12px;
+  padding: 7px 27px 5px 27px;
   border-radius: 12px;
   margin-bottom: 10px;
   display: inline-block;
+}
+
+.svg-group {
+ margin-bottom: 20px;
+ margin-left: -5px;
 }
 
 .smiley-badge {
@@ -842,22 +854,22 @@ input[name="tab-group"] {
 }
 .signup-form-container {
   flex: 1.2;
-  padding: 40px 60px;
+  padding: 30px 74px 30px 74px;
 }
 .form-group {
   margin-bottom: 20px;
 }
 .form-label {
   display: block;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 8px;
   color: var(--deep-green);
 }
 .form-input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 10px 12px;
   border: 1px solid var(--stroke);
-  border-radius: 12px;
+  border-radius: 8px;
   font-family: inherit;
   background: #fcfcfc;
   direction: rtl;
@@ -869,15 +881,15 @@ input[name="tab-group"] {
 }
 .form-actions {
   display: flex;
-  gap: 16px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 16px;
 }
 .btn-submit {
   flex: 2;
   background-color: var(--deep-green);
   color: var(--white);
-  padding: 14px;
-  border-radius: 12px;
+  padding: 8px;
+  border-radius: 8px;
   border: none;
   font-weight: bold;
   cursor: pointer;
@@ -1014,11 +1026,11 @@ input[name="tab-group"] {
   opacity: 0.6;
 }
 
-.btn-submit:not(:disabled):hover {
+/* .btn-submit:not(:disabled):hover {
   background-color: #1a5f3a;
   transform: translateY(-2px);
   transition: all 0.3s ease;
-}
+} */
 
 /* =========================================
    ANIMATION: Animated Text in Signup Form
@@ -1166,8 +1178,16 @@ input[name="tab-group"] {
 
 .success-title {
   color: var(--deep-green);
-  font-weight: 900;
-  font-size: 1.4rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  animation-delay: 0.4s;
+}
+
+.failed-title {
+  color: #3F0909;
+  font-weight: 700;
+  font-size: 1.2rem;
   margin-bottom: 10px;
   animation-delay: 0.4s;
 }
@@ -1182,8 +1202,8 @@ input[name="tab-group"] {
   background: transparent;
   border: 1px solid var(--stroke);
   color: var(--deep-green);
-  padding: 10px 40px;
-  border-radius: 30px;
+  padding: 2px 20px;
+  border-radius: 122px;
   font-weight: bold;
   cursor: pointer;
   font-family: inherit;
@@ -1191,10 +1211,19 @@ input[name="tab-group"] {
   animation-delay: 0.8s;
 }
 
-.btn-back-outline:hover {
-  background-color: var(--light-green);
-  border-color: var(--light-green);
+.btn-back-outline-f {
+  background: transparent;
+  border: 1px solid var(--stroke);
+  color: #3F0909;
+  padding: 2px 20px;
+  border-radius: 122px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s;
+  animation-delay: 0.8s;
 }
+
 
 @keyframes fadeInUp {
   from {
