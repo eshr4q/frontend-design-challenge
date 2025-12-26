@@ -59,55 +59,61 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  
   /* ==============
   --- RANGE SLIDER LOGIC ---
-  =============*/
+  ============== */
+
   const rangeInput = document.getElementById("rangeInput");
   const displayValue = document.getElementById("displayValue");
   const labelContainer = document.getElementById("labelContainer");
 
-  // Convert English to Persian
+  const MIN = 10;
+  const MAX = 100;
+  const STEP = 10;
+  const STEPS_COUNT = (MAX - MIN) / STEP + 1;
+
+// English → Persian digits
   function toPersianDigits(num) {
-    const farsiDigits = ["۰", "۱", "۲", "۳", "۴", "۵", "۶", "۷", "۸", "۹"];
-    return num.toString().replace(/\d/g, (x) => farsiDigits[x]);
+    const farsiDigits = ["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];
+    return num.toString().replace(/\d/g, d => farsiDigits[d]);
   }
 
+// Build labels (10 → 100)
   function setupLabels() {
     if (!labelContainer) return;
     labelContainer.innerHTML = "";
-    for (let i = 10; i <= 100; i += 10) {
+
+    for (let i = MIN; i <= MAX; i += STEP) {
       const span = document.createElement("span");
       span.textContent = toPersianDigits(i);
       labelContainer.appendChild(span);
     }
   }
 
-  // Update slider gradient and value
+// SNAP-based calculation
   function updateSlider() {
     if (!rangeInput) return;
 
-    const val = parseInt(rangeInput.value);
-    const min = parseInt(rangeInput.min);
-    const max = parseInt(rangeInput.max);
+    const value = Number(rangeInput.value);
+    const index = (value - MIN) / STEP;
+    const percentage = (index / (STEPS_COUNT - 1)) * 100;
 
-    // Calculate percentage for gradient
-    const percentage = ((val - min) / (max - min)) * 100;
-
-    // Apply to CSS Variable
     rangeInput.style.setProperty("--progress", `${percentage}%`);
 
-    // Update Text
     if (displayValue) {
-      displayValue.textContent = toPersianDigits(val);
+      displayValue.textContent = toPersianDigits(value);
     }
   }
 
-  // Initialize
+
   setupLabels();
+
   if (rangeInput) {
     rangeInput.addEventListener("input", updateSlider);
-    updateSlider(); // Run once on load
+    updateSlider();
   }
+
 
   /*=============================================
 --- DYNAMIC TABS GENERATOR ------------------------------------------------
@@ -327,227 +333,306 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
-  /* =========================================
-     FORM VALIDATION & ANIMATION
+ /* =========================================
+      Form - SELECTORS & VARIABLES
      ========================================= */
-
-  const signupContent = document.querySelector(".signup-content");
-
-  const signupForm =
-    document.getElementById("mainSignupForm") ||
-    document.querySelector(".signup-form-container form");
-  const submitBtn = document.getElementById("submitBtn");
-  const successMessage = document.getElementById("successMessage");
-  const backToFormBtn = document.getElementById("backToFormBtn");
-  const usernameInput =
-    document.getElementById("username") ||
-    document.querySelector('input[name="username"]') ||
-    document.querySelector('input[type="text"]');
-  const phoneInput =
-    document.getElementById("phone") ||
-    document.querySelector('input[name="phone"]') ||
-    document.querySelector('input[type="tel"]');
-  const passwordInput =
-    document.getElementById("password") ||
-    document.querySelector('input[name="password"]') ||
-    document.querySelector('input[type="password"]');
-
-  const toggleButton = document.getElementById("togglePassword");
-  const ruleLength = document.getElementById("rule-length");
-  const ruleNumber = document.getElementById("rule-number");
-  const ruleSpecial = document.getElementById("rule-special");
-
-  if (toggleButton && passwordInput) {
-    toggleButton.addEventListener("click", function () {
-      if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        this.classList.add("active");
-      } else {
-        passwordInput.type = "password";
-        this.classList.remove("active");
-      }
-    });
-  }
-
-  function checkFormValidity() {
-    if (!usernameInput || !phoneInput || !passwordInput) return;
-
-    const isUsernameValid = usernameInput.value.trim().length >= 3;
-
-    const rawPhone = phoneInput.value;
-    const enPhone = rawPhone.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
-    const isPhoneValid = /^09\d{9}$/.test(enPhone);
-
-    const isPassLen = ruleLength
-      ? ruleLength.classList.contains("valid")
-      : passwordInput.value.length >= 8;
-    const isPassNum = ruleNumber
-      ? ruleNumber.classList.contains("valid")
-      : /\d/.test(passwordInput.value);
-    const isPassSpecial = ruleSpecial
-      ? ruleSpecial.classList.contains("valid")
-      : true;
-
-    if (submitBtn) {
-      if (
-        isUsernameValid &&
-        isPhoneValid &&
-        isPassLen &&
-        isPassNum &&
-        isPassSpecial
-      ) {
-        submitBtn.disabled = false;
-        submitBtn.style.opacity = "1";
-        submitBtn.style.cursor = "pointer";
-      } else {
-        submitBtn.disabled = true;
-        submitBtn.style.opacity = "0.5";
-        submitBtn.style.cursor = "not-allowed";
-      }
-    }
-  }
-
-  if (usernameInput) usernameInput.addEventListener("input", checkFormValidity);
-
-  if (phoneInput) {
-    phoneInput.addEventListener("input", function () {
-      this.value = this.value.replace(/[^0-9۰-۹]/g, "");
-      checkFormValidity();
-    });
-  }
-
-  if (passwordInput) {
-    passwordInput.addEventListener("input", function () {
-      const val = this.value;
-      if (ruleLength)
-        val.length >= 8
-          ? ruleLength.classList.add("valid")
-          : ruleLength.classList.remove("valid");
-      if (ruleNumber)
-        /\d/.test(val)
-          ? ruleNumber.classList.add("valid")
-          : ruleNumber.classList.remove("valid");
-      if (ruleSpecial)
-        /[!@#$%^&*(),.?":{}|<>_+\-=\[\]]/.test(val)
-          ? ruleSpecial.classList.add("valid")
-          : ruleSpecial.classList.remove("valid");
-      checkFormValidity();
-    });
-  }
-
-  if (signupForm) {
-    signupForm.addEventListener("submit", function (e) {
-      e.preventDefault();
-
-      if (submitBtn && submitBtn.disabled) return;
-
-      signupForm.classList.add("form-fade-out");
-
-      if (signupContent) {
-        signupContent.classList.add("success-state");
-      }
-
-      setTimeout(() => {
-        signupForm.style.display = "none";
-
-        if (successMessage) {
-          successMessage.style.display = "flex";
-
-          const iconBox = successMessage.querySelector(".success-icon-box");
-          if (iconBox) {
-            iconBox.style.animation = "none";
-            iconBox.offsetHeight;
-            iconBox.style.animation =
-              "popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards";
-          }
-        }
-      }, 400);
-    });
-  }
-
-  if (backToFormBtn) {
-    backToFormBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-
-      if (signupContent) {
-        signupContent.classList.remove("success-state");
-      }
-
-      if (successMessage) successMessage.style.display = "none";
-
-      if (signupForm) {
-        signupForm.style.display = "block";
-        setTimeout(() => {
-          signupForm.classList.remove("form-fade-out");
-        }, 50);
-        signupForm.reset();
-      }
-
-      if (submitBtn) submitBtn.disabled = true;
-      if (ruleLength) ruleLength.classList.remove("valid");
-      if (ruleNumber) ruleNumber.classList.remove("valid");
-      if (ruleSpecial) ruleSpecial.classList.remove("valid");
-    });
-  }
-    /* =========================================
-     LOGIC FOR CANCEL BUTTON (ERROR STATE)
-     ========================================= */
+     const signupContent = document.querySelector(".signup-content");
+     const signupForm = document.querySelector(".signup-form-container form");
+     
+     // Buttons
+     const submitBtn = document.getElementById("submitBtn");
      const btnCancel = document.querySelector(".btn-cancel");
-     const errorMessage = document.getElementById("errorMessage");
+     const backToFormBtn = document.getElementById("backToFormBtn");
      const backFromErrorBtn = document.getElementById("backFromErrorBtn");
    
-
-     if (btnCancel) {
-       btnCancel.addEventListener("click", (e) => {
-         e.preventDefault(); 
+     // Messages
+     const successMessage = document.getElementById("successMessage");
+     const errorMessage = document.getElementById("errorMessage");
    
-
-         signupForm.classList.add("form-fade-out");
+     // Inputs
+     // FIX: We select by type since ID is missing in HTML
+     const usernameInput = document.querySelector('input[type="text"]'); 
+     const phoneInput = document.querySelector('input[type="tel"]');
+     const passwordInput = document.querySelector('input[type="password"]');
    
-
-         if (signupContent) {
-           signupContent.classList.add("error-state");
+     // Rules
+     const ruleLength = document.getElementById("rule-length");
+     const ruleNumber = document.getElementById("rule-number");
+     const ruleSpecial = document.getElementById("rule-special");
+   
+     /* =========================================
+        TOGGLE PASSWORD VISIBILITY
+        ========================================= */
+     const toggleButton = document.getElementById("togglePassword");
+     if (toggleButton && passwordInput) {
+       toggleButton.addEventListener("click", function () {
+         if (passwordInput.type === "password") {
+           passwordInput.type = "text";
+           this.classList.add("active");
+         } else {
+           passwordInput.type = "password";
+           this.classList.remove("active");
          }
-
-         setTimeout(() => {
-           signupForm.style.display = "none";
-           
-           if (errorMessage) {
-             errorMessage.style.display = "flex";
-             
-
-             const iconBox = errorMessage.querySelector(".success-icon-box");
-             if (iconBox) {
-               iconBox.style.animation = "none";
-               iconBox.offsetHeight;
-               iconBox.style.animation = "popIn 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards";
-             }
+       });
+     }
+   
+     /* =========================================
+        FORM VALIDATION LOGIC
+        ========================================= */
+     function checkFormValidity() {
+       if (!usernameInput || !phoneInput || !passwordInput) return;
+   
+       // 1. Username Validation
+       const usernameVal = usernameInput.value;
+       const hasUsernameNumbers = /[0-9۰-۹]/.test(usernameVal);
+       // Valid only if length is good AND no numbers
+       const isUsernameValid = usernameVal.trim().length >= 3 && !hasUsernameNumbers;
+   
+       // 2. Phone Validation
+       const rawPhone = phoneInput.value;
+       const enPhone = rawPhone.replace(/[۰-۹]/g, (d) => "۰۱۲۳۴۵۶۷۸۹".indexOf(d));
+       const isPhoneValid = /^09\d{9}$/.test(enPhone);
+   
+       // 3. Password Validation
+       const isPassLen = passwordInput.value.length >= 8;
+       const isPassNum = /\d/.test(passwordInput.value);
+       const isPassSpecial = /[!@#$%^&*(),.?":{}|<>_+\-=\[\]]/.test(passwordInput.value);
+   
+       // Update Password Rule UI
+       if (ruleLength) isPassLen ? ruleLength.classList.add("valid") : ruleLength.classList.remove("valid");
+       if (ruleNumber) isPassNum ? ruleNumber.classList.add("valid") : ruleNumber.classList.remove("valid");
+       if (ruleSpecial) isPassSpecial ? ruleSpecial.classList.add("valid") : ruleSpecial.classList.remove("valid");
+   
+       // Enable/Disable Submit Button
+       if (submitBtn) {
+         if (isUsernameValid && isPhoneValid && isPassLen && isPassNum && isPassSpecial) {
+           submitBtn.disabled = false;
+           submitBtn.style.opacity = "1";
+           submitBtn.style.cursor = "pointer";
+         } else {
+           submitBtn.disabled = true;
+           submitBtn.style.opacity = "0.6";
+           submitBtn.style.cursor = "not-allowed";
+         }
+       }
+     }
+   
+     /* =========================================
+        EVENT LISTENERS (INPUTS)
+        ========================================= */
+   
+     // --- Username Listener (FIXED) ---
+     if (usernameInput) {
+       usernameInput.addEventListener("input", function (e) {
+         const value = e.target.value;
+         const hasNumbers = /[0-9۰-۹]/.test(value);
+   
+         // FIX: Find the parent .form-group dynamically
+         const parentGroup = usernameInput.closest('.form-group');
+   
+         if (parentGroup) {
+           if (hasNumbers) {
+             parentGroup.classList.add("has-error");
+           } else {
+             parentGroup.classList.remove("has-error");
            }
-         }, 400);
+         }
+   
+         checkFormValidity();
        });
      }
    
- 
-     if (backFromErrorBtn) {
-       backFromErrorBtn.addEventListener("click", (e) => {
+     // --- Phone Listener ---
+     if (phoneInput) {
+       phoneInput.addEventListener("input", function () {
+         this.value = this.value.replace(/[^0-9۰-۹]/g, ""); // Allow only digits
+         checkFormValidity();
+       });
+     }
+   
+     // --- Password Listener ---
+     if (passwordInput) {
+       passwordInput.addEventListener("input", checkFormValidity);
+     }
+   
+     /* =========================================
+        ANIMATION LOGIC (Flying Smiley & Reset)
+        ========================================= */
+   
+     let savedBadgeRect = null;
+   
+     function runSmileyAnimation(type) {
+       const isSuccess = type === "success";
+       const originalSmileyBadge = document.querySelector(".smiley-badge");
+       if (!originalSmileyBadge) return;
+   
+       const originalImg = originalSmileyBadge.querySelector("img");
+       const startRect = originalSmileyBadge.getBoundingClientRect();
+       savedBadgeRect = startRect;
+   
+       const startSize = 70;
+       const finalSize = 82;
+   
+       const offset = (startSize - startRect.width) / 2;
+       const startLeft = startRect.left - offset;
+       const startTop = startRect.top - offset;
+   
+       const flyer = document.createElement("div");
+       flyer.classList.add("flyer-clone");
+       flyer.style.width = startSize + "px";
+       flyer.style.height = startSize + "px";
+       flyer.style.left = startLeft + "px";
+       flyer.style.top = startTop + "px";
+       flyer.style.backgroundColor = isSuccess ? "var(--light-green)" : "#FFD4D4";
+   
+       const flyerImg = document.createElement("img");
+       flyerImg.src = isSuccess ? originalImg.src : "assets/icons/SmileySad.svg";
+       flyer.appendChild(flyerImg);
+       document.body.appendChild(flyer);
+   
+       originalSmileyBadge.style.opacity = "0";
+   
+       if (isSuccess) {
+         signupContent.classList.add("success-state");
+       } else {
+         signupContent.classList.add("error-state");
+       }
+       signupForm.classList.add("form-fade-out");
+   
+       const mainWrapperRect = signupContent.getBoundingClientRect();
+       const destX = mainWrapperRect.left + mainWrapperRect.width / 2 - finalSize / 2;
+       const destY = mainWrapperRect.top + mainWrapperRect.height / 2 - finalSize / 2 - 105;
+   
+       requestAnimationFrame(() => {
+         flyer.style.width = finalSize + "px";
+         flyer.style.height = finalSize + "px";
+         flyer.style.left = destX + "px";
+         flyer.style.top = destY + "px";
+       });
+   
+       setTimeout(() => {
+         signupForm.style.display = "none";
+         const targetMessage = isSuccess ? successMessage : errorMessage;
+         targetMessage.style.display = "flex";
+   
+         const finalIconBox = targetMessage.querySelector(".success-icon-box");
+         if (finalIconBox) {
+           finalIconBox.classList.add("revealed");
+         }
+   
+         flyer.remove();
+       }, 600);
+     }
+   
+     // --- Fly Back Animation ---
+     function resetFormUI() {
+       const activeMsg = successMessage.style.display === "flex" ? successMessage : null;
+   
+       if (!activeMsg || !savedBadgeRect) {
+         hardResetUI();
+         return;
+       }
+   
+       const iconBox = activeMsg.querySelector(".success-icon-box");
+       const iconImg = activeMsg.querySelector(".success-smiley") || activeMsg.querySelector("img");
+       const startRect = iconBox.getBoundingClientRect();
+   
+       const flyer = document.createElement("div");
+       flyer.classList.add("flyer-clone");
+       flyer.style.width = "82px";
+       flyer.style.height = "82px";
+       flyer.style.left = startRect.left + "px";
+       flyer.style.top = startRect.top + "px";
+       flyer.style.backgroundColor = activeMsg === successMessage ? "var(--light-green)" : "#FFD4D4";
+   
+       const flyerImg = document.createElement("img");
+       flyerImg.src = iconImg.src || iconImg.getAttribute("src");
+       flyer.appendChild(flyerImg);
+       document.body.appendChild(flyer);
+   
+       iconBox.classList.remove("revealed");
+       iconBox.style.opacity = "0";
+   
+       signupContent.classList.remove("success-state", "error-state");
+       activeMsg.style.display = "none";
+   
+       signupForm.style.display = "block";
+       setTimeout(() => {
+         signupForm.classList.remove("form-fade-out");
+       }, 50);
+   
+       const targetSize = 70;
+       const targetX = savedBadgeRect.left + savedBadgeRect.width / 2 - targetSize / 2;
+       const targetY = savedBadgeRect.top + savedBadgeRect.height / 2 - targetSize / 2;
+   
+       requestAnimationFrame(() => {
+         flyer.style.width = targetSize + "px";
+         flyer.style.height = targetSize + "px";
+         flyer.style.left = targetX + "px";
+         flyer.style.top = targetY + "px";
+       });
+   
+       setTimeout(() => {
+         flyer.remove();
+         const originalBadge = document.querySelector(".smiley-badge");
+         if (originalBadge) originalBadge.style.opacity = "1";
+   
+         signupForm.reset();
+   
+         // Fix: Remove error class from username if it exists
+         if (usernameInput) {
+           const parentGroup = usernameInput.closest('.form-group');
+           if (parentGroup) parentGroup.classList.remove("has-error");
+         }
+         
+         checkFormValidity();
+   
+         document.querySelectorAll(".success-icon-box").forEach((box) => {
+           box.classList.remove("revealed");
+           box.style.opacity = "";
+           box.style.transform = "";
+         });
+       }, 600);
+     }
+   
+     function hardResetUI() {
+       signupContent.classList.remove("success-state", "error-state");
+       signupForm.style.display = "block";
+       signupForm.classList.remove("form-fade-out");
+       successMessage.style.display = "none";
+       errorMessage.style.display = "none";
+       
+       // Fix: Remove error class from username manually
+       if (usernameInput) {
+           const parentGroup = usernameInput.closest('.form-group');
+           if (parentGroup) parentGroup.classList.remove("has-error");
+       }
+   
+       const originalBadge = document.querySelector(".smiley-badge");
+       if (originalBadge) originalBadge.style.opacity = "1";
+       signupForm.reset();
+       checkFormValidity();
+     }
+   
+     /* =========================================
+        BUTTON EVENTS
+        ========================================= */
+     if (signupForm) {
+       signupForm.addEventListener("submit", function (e) {
          e.preventDefault();
-
-         if (signupContent) {
-           signupContent.classList.remove("error-state");
-         }
-   
- 
-         if (errorMessage) errorMessage.style.display = "none";
-   
-         if (signupForm) {
-           signupForm.style.display = "block";
-           setTimeout(() => {
-             signupForm.classList.remove("form-fade-out");
-           }, 50);
-  
-           signupForm.reset(); 
+         if (submitBtn && !submitBtn.disabled) {
+           runSmileyAnimation("success");
          }
        });
      }
    
-});
+     if (btnCancel) {
+       btnCancel.addEventListener("click", function (e) {
+         e.preventDefault();
+         runSmileyAnimation("error");
+       });
+     }
+   
+     if (backToFormBtn) backToFormBtn.addEventListener("click", resetFormUI);
+     if (backFromErrorBtn) backFromErrorBtn.addEventListener("click", resetFormUI);
+   });

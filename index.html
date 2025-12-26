@@ -58,7 +58,7 @@
 
       <section class="hero-section">
         <h1 class="hero-title">
-          بزار کُدت
+          بذار کُدت
 
           <img src="assets/images/code.png" alt="code" class="hero-icon" />
           حرف بزنه...
@@ -195,6 +195,7 @@
               <br />
               World <br />
               together
+              <img src="assets/icons/Group-3.svg" alt="Group-3" class="svg-group "/>
             </h2>
             <div class="smiley-badge">
               <img src="assets/icons/Smiley.svg" alt="smile" />
@@ -205,10 +206,12 @@
             <form action="#">
               <div class="form-group">
                 <label class="form-label">نام کاربری</label>
+                <div class="error-tooltip">فقط حروف مجاز است!</div>
                 <input
                   type="text"
                   class="form-input"
                   placeholder="مثلاً: حمیدرضا"
+                  
                 />
               </div>
               <div class="form-group">
@@ -291,34 +294,55 @@
                   id="submitBtn"
                   disabled
                 >
+                <img src="assets/icons/UserPlus.svg" alt="user" >
                   ثبت نام
+              
                 </button>
                 <button type="button" class="btn-cancel">انصراف</button>
               </div>
             </form>
-            <div class="success-message" id="successMessage" style="display: none;">
+            <div
+              class="success-message"
+              id="successMessage"
+              style="display: none"
+            >
               <div class="success-icon-box">
-                <img src="assets/icons/Smiley.svg" alt="Success" class="success-smiley">
+                <img
+                  src="assets/icons/Smiley.svg"
+                  alt="Success"
+                  class="success-smiley"
+                />
               </div>
               <h3 class="success-title">ثبت نام شما با موفقیت انجام شد!</h3>
               <p class="success-desc">به مجموعه ما خوش آمدید...</p>
-              <button type="button" class="btn-back-outline" id="backToFormBtn">بازگشت</button>
+              <button type="button" class="btn-back-outline" id="backToFormBtn">
+                بازگشت
+              </button>
             </div>
 
-<div class="success-message error-mode" id="errorMessage" style="display: none;">
-  <div class="success-icon-box error-theme">
-
-    <img src="assets/icons/SmileySad.svg" alt="Error" >
-  </div>
-  <h3 class="success-title">مشکلی پیش آمده!</h3>
-  <p class="success-desc">ثبت نام شما انجام نشد...</p>
-  <button type="button" class="btn-back-outline" id="backFromErrorBtn">بازگشت</button>
-</div>
-
+            <div
+              class="success-message error-mode"
+              id="errorMessage"
+              style="display: none"
+            >
+              <div class="success-icon-box error-theme">
+                <img src="assets/icons/SmileySad.svg" alt="Error" />
+              </div>
+              <h3 class="failed-title">مشکلی پیش آمده!</h3>
+              <p class="success-desc">ثبت نام شما انجام نشد...</p>
+              <button
+                type="button"
+                class="btn-back-outline-f"
+                id="backFromErrorBtn"
+              >
+                بازگشت
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
+      <!-- Range SLider  -->
       <section class="range-slider-section">
         <div class="card-wrapper">
           <div class="rs-card-section rs-header-section">
@@ -355,23 +379,15 @@
             </div>
 
             <div class="slider-wrapper">
-              <input
-                type="range"
-                id="rangeInput"
-                min="10"
-                max="100"
-                step="10"
-                value="20"
-              />
+              <input type="range" id="rangeInput" min="10" max="100" step="10" value="20" orient="vertical">
               <div class="slider-labels" id="labelContainer"></div>
             </div>
           </div>
         </div>
       </section>
- 
 
       <div style="height: 100px"></div>
-      <img src="assets/images/footer.png" alt="Success" class="footer" >
+      <img src="assets/images/footer.png" alt="Success" class="footer" />
     </div>
     <script src="js/main.js"></script>
     <div class="video-popup" id="videoPopup">

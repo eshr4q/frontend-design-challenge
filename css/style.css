@@ -1,18 +1,25 @@
 /* =========================================
-   FONTS & VARIABLES
+   FONT – Estedad FD (Regular Only)
    ========================================= */
 @font-face {
-  font-family: "Vazirmatn";
-  src: url("../assets/fonts/Vazirmatn-Regular.woff2") format("woff2");
-  font-weight: normal;
+  font-family: "Estedad FD";
+  src: url("../assets/fonts/Estedad-Regular.woff2") format("woff2");
+  font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
+
 @font-face {
-  font-family: "Vazirmatn";
-  src: url("../assets/fonts/Vazirmatn-Bold.woff2") format("woff2");
-  font-weight: bold;
-  font-style: normal;
+  font-family: "Estedad FD";
+  src: url("../assets/fonts/Estedad-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Estedad FD";
+  src: url("../assets/fonts/Estedad-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
   font-display: swap;
 }
 
@@ -24,8 +31,7 @@
   --stroke: #ededed;
   --light-color: #f2f2f0;
   --white: #ffffff;
-
-  --font-main: "Vazirmatn", sans-serif;
+  --font-main: "Estedad FD", sans-serif;
 }
 
 /* =========================================
@@ -69,9 +75,10 @@ a {
 /* Responsive Padding */
 @media (max-width: 1200px) {
   .site-container {
-    padding: 0;
+    padding: 0 244px;
   }
 }
+
 @media (max-width: 768px) {
   .site-container {
     padding: 0;
@@ -798,6 +805,7 @@ input[name="tab-group"] {
   display: flex;
   flex-direction: row-reverse;
   min-height: 500px;
+  overflow: visible !important;
 }
 .signup-brand {
   flex: 1;
@@ -818,10 +826,15 @@ input[name="tab-group"] {
 }
 .highlight-text {
   background-color: var(--white);
-  padding: 0 12px;
+  padding: 7px 27px 5px 27px;
   border-radius: 12px;
   margin-bottom: 10px;
   display: inline-block;
+}
+
+.svg-group {
+  margin-bottom: 20px;
+  margin-left: -5px;
 }
 
 .smiley-badge {
@@ -842,24 +855,25 @@ input[name="tab-group"] {
 }
 .signup-form-container {
   flex: 1.2;
-  padding: 40px 60px;
+  padding: 30px 74px 30px 74px;
 }
 .form-group {
   margin-bottom: 20px;
+  position: relative;
 }
 .form-label {
   display: block;
-  font-weight: bold;
+  font-weight: normal;
   margin-bottom: 8px;
   color: var(--deep-green);
 }
 .form-input {
   width: 100%;
-  padding: 14px 16px;
+  padding: 10px 12px;
   border: 1px solid var(--stroke);
-  border-radius: 12px;
+  border-radius: 8px;
   font-family: inherit;
-  background: #fcfcfc;
+  background: #ffffff;
   direction: rtl;
 }
 .form-input:focus {
@@ -867,17 +881,73 @@ input[name="tab-group"] {
   border-color: var(--light-green);
   background: var(--white);
 }
+
+.form-input:not(:placeholder-shown):not(:focus) {
+  background-color: #f9f9f9;
+}
+
+/* The Red Error Bubble */
+.error-tooltip {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: #d44141;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+
+  z-index: 20;
+
+  pointer-events: none;
+}
+
+/* The Triangle Arrow pointing down */
+.error-tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%; /* Bottom of tooltip */
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #d44141 transparent transparent transparent;
+}
+
+/* Active State: When the error is shown */
+.form-group.has-error .error-tooltip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0); /* Move to final position */
+}
+
+/* Change input border color on error */
+.form-group.has-error .form-input {
+  border-color: #d44141;
+  background-color: #ffffff; /* Slight red tint background */
+}
+
+.form-group.has-error .form-label {
+  color: #d44141;
+}
+
 .form-actions {
   display: flex;
-  gap: 16px;
-  margin-top: 20px;
+  gap: 8px;
+  margin-top: 16px;
 }
 .btn-submit {
   flex: 2;
   background-color: var(--deep-green);
   color: var(--white);
-  padding: 14px;
-  border-radius: 12px;
+  padding: 8px;
+  border-radius: 8px;
   border: none;
   font-weight: bold;
   cursor: pointer;
@@ -1014,12 +1084,6 @@ input[name="tab-group"] {
   opacity: 0.6;
 }
 
-.btn-submit:not(:disabled):hover {
-  background-color: #1a5f3a;
-  transform: translateY(-2px);
-  transition: all 0.3s ease;
-}
-
 /* =========================================
    ANIMATION: Animated Text in Signup Form
    ========================================= */
@@ -1064,11 +1128,9 @@ input[name="tab-group"] {
   transition: all 0.6s ease;
 }
 
-
 .success-icon-box.error-theme {
-  background-color: #FFD4D4;
+  background-color: #ffd4d4;
 }
-
 
 @keyframes flip-words {
   0% {
@@ -1091,6 +1153,30 @@ input[name="tab-group"] {
     transform: translateY(0);
   }
 }
+/* =========================================
+   FLYING SMILEY ANIMATION STYLES
+   ========================================= */
+
+/* The flying clone container */
+.flyer-clone {
+  position: fixed;
+  z-index: 9999;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.6s cubic-bezier(0.34, 1.76, 0.84, 1);
+  pointer-events: none;
+
+  transform-origin: center center;
+}
+
+.flyer-clone img {
+  width: 60%;
+  height: 60%;
+  object-fit: contain;
+  transition: all 0.6s ease;
+}
 
 /* =========================================
    SUCCESS MESSAGE ANIMATION
@@ -1108,16 +1194,23 @@ input[name="tab-group"] {
 }
 
 .success-icon-box {
-  width: 100px;
-  height: 100px;
+  width: 82px;
+  height: 82px;
   background-color: var(--light-green);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 30px;
-  transform: scale(0);
-  animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+/* Class added by JS after flyer lands */
+.success-icon-box.revealed {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .success-smiley {
@@ -1137,8 +1230,16 @@ input[name="tab-group"] {
 
 .success-title {
   color: var(--deep-green);
-  font-weight: 900;
-  font-size: 1.4rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  animation-delay: 0.4s;
+}
+
+.failed-title {
+  color: #3f0909;
+  font-weight: 700;
+  font-size: 1.2rem;
   margin-bottom: 10px;
   animation-delay: 0.4s;
 }
@@ -1153,8 +1254,8 @@ input[name="tab-group"] {
   background: transparent;
   border: 1px solid var(--stroke);
   color: var(--deep-green);
-  padding: 10px 40px;
-  border-radius: 30px;
+  padding: 2px 20px;
+  border-radius: 122px;
   font-weight: bold;
   cursor: pointer;
   font-family: inherit;
@@ -1162,24 +1263,17 @@ input[name="tab-group"] {
   animation-delay: 0.8s;
 }
 
-.btn-back-outline:hover {
-  background-color: var(--light-green);
-  border-color: var(--light-green);
-}
-
-@keyframes popIn {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  60% {
-    transform: scale(1.1);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
+.btn-back-outline-f {
+  background: transparent;
+  border: 1px solid var(--stroke);
+  color: #3f0909;
+  padding: 2px 20px;
+  border-radius: 122px;
+  font-weight: bold;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.3s;
+  animation-delay: 0.8s;
 }
 
 @keyframes fadeInUp {
@@ -1199,7 +1293,6 @@ input[name="tab-group"] {
   transition: all 0.4s ease;
   pointer-events: none;
 }
-
 /* =========================================
    RANGE SLIDER (Desktop Default)
    ========================================= */
@@ -1217,7 +1310,7 @@ input[name="tab-group"] {
   justify-content: center;
   gap: 10px;
   color: var(--deep-green);
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 23px;
 }
 .large-number {
@@ -1248,6 +1341,11 @@ input[name="tab-group"] {
 #rangeInput,
 .slider-labels {
   direction: rtl;
+}
+
+#displayValue {
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 #rangeInput {
@@ -1303,54 +1401,53 @@ input[name="tab-group"] {
   cursor: pointer;
 }
 
-/* --- Labels Styling (Desktop) --- */
+/* -------- Labels -------- */
 .slider-labels {
+  position: relative;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  margin-top: 14px;
   font-weight: 800;
-  color: var(--deep-green);
   font-size: 12px;
+  color: var(--deep-green);
   user-select: none;
-  position: static;
-  padding: 0 70px;
+  pointer-events: none;
 }
 
+/* Default label */
 .slider-labels span {
-  /* width: 20px;
-  text-align: center; */
   position: relative;
 }
 
+/* Tick for middle values */
 .slider-labels span::after {
   content: "";
   position: absolute;
-  top: -10px;
+  top: -12px;
   left: 50%;
   transform: translateX(-50%);
   width: 2px;
   height: 6px;
   background-color: var(--deep-green);
-  opacity: 0.2;
+  opacity: 0.35;
   border-radius: 2px;
 }
 
-.slider-labels span:first-child {
-  position: absolute;
-  right: 15px;
-  top: 20px;
-  margin: 0;
-}
-.slider-labels span:first-child::after {
-  display: none;
-}
-
+/* -------- Edge labels: 10 & 100 -------- */
+.slider-labels span:first-child,
 .slider-labels span:last-child {
-  position: absolute;
-  left: 15px;
-  top: 20px;
-  margin: 0;
+  position: relative;
+  top: -22px;
+  font-weight: 800;
 }
+.slider-labels span:last-child {
+  right: 26px;
+}
+.slider-labels span:first-child {
+  left: +26px;
+}
+/* Remove ticks on edges */
+.slider-labels span:first-child::after,
 .slider-labels span:last-child::after {
   display: none;
 }
@@ -1412,6 +1509,18 @@ input[name="tab-group"] {
     border-radius: 0 0 24px 24px;
     padding: 50px 24px 40px 24px;
     flex: none;
+  }
+
+  .signup-content.success-state .signup-brand,
+  .signup-content.error-state .signup-brand {
+    height: 0 !important;
+    min-height: 0 !important;
+    flex: 0 0 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.6s ease;
   }
 
   .hero-title {
@@ -1525,7 +1634,7 @@ input[name="tab-group"] {
   z-index: 1000 !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .site-header {
     position: relative;
     z-index: 1001;
@@ -1693,152 +1802,209 @@ input[name="tab-group"] {
     height: 8px;
   }
 
+  .rs-header-section {
+    border-radius: 8px;
+  }
   /* range slider*/
   .rs-body-section {
+    border-radius: 8px;
     display: flex;
     flex-direction: row-reverse;
-    justify-content: center;
     align-items: center;
-    gap: 53px;
-    padding: 40px 20px !important;
-    min-height: 500px;
+    padding: 24px;
+    gap: 32px;
+    justify-content: space-between;
+    width: 100%;
   }
 
   .value-display {
-    flex-direction: column;
-    text-align: right;
-    width: auto;
-    gap: 8px;
-    margin-bottom: 0;
-  }
-  .value-display span:nth-child(1) {
-    order: 1;
-    font-size: 1.2rem;
-  }
-  .large-number {
-    order: 2;
-    font-size: 5rem;
-    margin: 5px 0;
-    line-height: 1;
-    text-shadow: 0 10px 20px rgba(9, 63, 32, 0.1);
-  }
-  .value-display span:nth-child(3) {
-    order: 3;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 8px;
-    font-size: 1.1rem;
-  }
-  .info-icon {
-    order: 4;
-    display: inline-flex;
+    justify-content: center;
+    width: 60%;
+    height: 320px;
   }
 
-  .slider-wrapper {
-    width: 100px;
-    height: 480px;
-    padding: 0;
+  .value-display > span:first-of-type {
+    order: 1 !important;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--deep-green);
+    margin-bottom: -15px;
+    z-index: 2;
+  }
+
+  .large-number {
+    order: 2 !important;
+    font-size: 8.5rem !important;
+    font-weight: 900;
+    font: bold;
+    margin: 0;
+    line-height: 1.2;
+    color: var(--deep-green);
+    text-shadow: 0 0 40px rgba(76, 175, 80, 0.3),
+      0 0 80px rgba(76, 175, 80, 0.2);
+  }
+
+  .selection-row {
+    order: 3 !important;
     display: flex;
+    align-items: center;
     justify-content: center;
-    border-radius: 16px;
-    position: relative;
+    gap: 8px;
+    margin-top: -5px;
+  }
+
+  .selection-row span:not(.info-icon) {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #063d1f;
+  }
+
+  .info-icon {
+    background-color: #063d1f;
+    color: white;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    cursor: pointer;
   }
 
   #rangeInput {
-    position: absolute;
-    width: 440px;
-    height: 4px;
-    top: 50%;
-    left: 50%;
-    margin: 0;
-    background: transparent;
-    transform: translate(-50%, -50%) rotate(90deg);
+    accent-color: var(--deep-green);
+
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    appearance: slider-vertical;
+    width: 16px;
+    height: 384px;
+    margin: 0 auto;
+    background: var(--deep-green);
+    border-radius: 10px;
   }
+
   #rangeInput::-webkit-slider-runnable-track {
-    background: white;
-    height: 4px;
-    border-radius: 2px;
+    width: 4px;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(
+      to top,
+      var(--deep-green) 0%,
+      var(--deep-green) var(--progress),
+      var(--white) var(--progress),
+      var(--white) 100%
+    );
   }
+
   #rangeInput::-moz-range-track {
-    background: white;
-    height: 4px;
-    border-radius: 2px;
+    width: 4px;
+    height: 100%;
+    border-radius: 20px;
+    background: linear-gradient(
+      to top,
+      var(--deep-green) 100%,
+      var(--deep-green) var(--progress),
+      var(--white) var(--progress),
+      var(--white) 100%
+    );
   }
   #rangeInput::-webkit-slider-thumb {
-    width: 24px;
-    height: 24px;
-    margin-top: -10px;
-    box-shadow: 0 0 0 4px rgba(223, 252, 161, 0.6);
+    appearance: none;
+    -webkit-appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--deep-green);
+
+    border: none;
+    margin-right: -6px;
+
+    position: relative;
+    z-index: 2;
+  }
+
+  #rangeInput::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+
+    background: var(--deep-green);
+    border: none;
   }
 
   .slider-labels {
-    /* position: absolute;  */
-    inset: 0px 0;
+    position: absolute;
+    inset: 0;
+    padding: 20px 0;
+    display: flex;
     flex-direction: column-reverse;
     justify-content: space-between;
-    margin: 0;
-    padding: 0;
-    z-index: 1;
+    pointer-events: none;
+    z-index: 5;
+    font-weight: 700;
   }
 
   .slider-labels span {
-    width: 100%;
-    height: 24px;
-    display: flex;
-    align-items: center;
-    font-size: 14px;
     position: relative;
+    height: 0;
+    line-height: 0;
+    font-size: 0.85rem;
+    color: var(--deep-green);
+    transform: translateY(-50%);
+    white-space: nowrap;
   }
+
+  .slider-labels span:nth-child(even):not(:nth-child(10)) {
+    right: 14px;
+    text-align: right;
+  }
+
+  .slider-labels span:nth-child(odd):not(:nth-child(1)) {
+    left: 14px;
+    text-align: left;
+  }
+
+  .slider-labels span::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 2px;
+    background: var(--deep-green);
+    transform: translateY(-10%);
+    opacity: 0.35;
+    border-radius: 2px;
+  }
+
+  .slider-labels span:nth-child(even):not(:nth-child(10))::after {
+    right: 10%;
+    margin-right: 6px;
+    left: auto;
+  }
+
+  .slider-labels span:nth-child(odd):not(:nth-child(1))::after {
+    left: 10%;
+    margin-left: 6px;
+    right: auto;
+  }
+
   .slider-labels span:first-child,
   .slider-labels span:last-child {
     position: relative;
-    top: auto;
-    left: auto;
-    right: auto;
-    margin: 0;
-    justify-content: center;
-    padding: 0;
-  }
-  .slider-labels span::after {
-    content: "";
-    display: block;
-    position: absolute;
-    height: 2px;
-    width: 10px;
-    background-color: var(--deep-green);
-    opacity: 0.3;
-    top: 50%;
-    z-index: -1;
-    transform: translateY(50%);
-    border-radius: 0;
-  }
-  .slider-labels span:nth-child(odd) {
-    justify-content: flex-start;
-    padding-left: 20px;
-  }
-  .slider-labels span:nth-child(odd)::after {
-    left: 45px;
-    right: auto;
-  }
-  .slider-labels span:nth-child(even) {
-    justify-content: flex-end;
-    padding-right: 20px;
-  }
-  .slider-labels span:nth-child(even)::after {
-    right: 45px;
-    left: auto;
-  }
-  .slider-labels span:first-child {
-    justify-content: center;
-    padding: 0;
+    font-weight: 800;
+    transform: translateX(-50%);
   }
   .slider-labels span:last-child {
-    justify-content: center;
-    padding: 0;
+    top: -17px;
+    right: -6px;
   }
-  .slider-labels span:first-child::after,
-  .slider-labels span:last-child::after {
-    display: none;
+  .slider-labels span:first-child {
+    top: 15px;
+    left: 6px;
   }
 
   .tooltip-box {
